@@ -71,7 +71,7 @@ class Events extends StatelessWidget {
                   List<EventsModel>  eventsModel =RemoteDataSource.eventsModel??[];
 
 
-                  return RemoteDataSource.eventsModel!=null?Column(
+                  return RemoteDataSource.eventsModel!.isNotEmpty?Column(
                   children: [
                     SizedBox(
                       height: heightMedia*.67,
@@ -110,7 +110,7 @@ class Events extends StatelessWidget {
                             Column(
                               children: [
                                 Center(
-                                  child:Text('${ eventsModel[index].player.namePlayer}',style: Theme.of(context).textTheme.bodyText2!.copyWith(fontSize: widthMedia*.05,color: Colors.white),),
+                                  child:Text('${ eventsModel[index].player.namePlayer}',style: Theme.of(context).textTheme.bodyText2!.copyWith(fontSize: widthMedia*.05),),
                                 ),
                                 SizedBox(height:heightMedia*.008 ,),
                                 Text('${ eventsModel[index].type=='Goal'?'Ass : ${eventsModel[index].assist.name}':eventsModel[index].type}',style: Theme.of(context).textTheme.bodyText2!.copyWith(fontSize: 15),),
@@ -126,7 +126,7 @@ class Events extends StatelessWidget {
                               Column(
                                 children: [
                                   Center(
-                                    child:Text('${ eventsModel[index].player.namePlayer}',style: Theme.of(context).textTheme.bodyText2!.copyWith(fontSize: widthMedia*.05,color: Colors.white),),
+                                    child:Text('${ eventsModel[index].player.namePlayer}',style: Theme.of(context).textTheme.bodyText2!.copyWith(fontSize: widthMedia*.05),),
                                   ),
                                   SizedBox(height:heightMedia*.008 ,),
                                   Text('${ eventsModel[index].type=='Goal'?'Ass : ${eventsModel[index].assist.name}':eventsModel[index].type}',style: Theme.of(context).textTheme.bodyText2!.copyWith(fontSize: 15),),

@@ -311,14 +311,13 @@ static  LiveMatchModel? liveModel;
 
   @override
   Future<void> getEvents(int idFixture) async{
+    eventsModel=[];
     final request = await http.get(
         Uri.parse(
             '${Constants.api}/${Constants.endPoints[10]}?fixture=$idFixture'),
         headers: Constants.headers);
 
     if (jsonDecode(request.body)['results'] > 0) {
-      eventsModel=[];
-      //print(jsonDecode(request.body)['response']);
 
 
       jsonDecode(request.body)['response'].forEach((element){

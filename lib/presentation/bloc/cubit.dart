@@ -338,7 +338,7 @@ class MatchesCubit extends Cubit<MatchesState> {
 
 
   void timeToStartLive(List<ResponseFixtures> model, context) {
-print('time to start live');
+        print('time to start live');
     for (int i = 0; i < model.length; i++) {
       liveDate.add(false);
       matchDuration[model[i].fixtures.idFixtures]=Duration.zero;
@@ -350,10 +350,8 @@ print('time to start live');
       int hour = (int.parse(model[i].fixtures.date.substring(11, 13)))-DateTime.now().hour;
       int minutes = (int.parse(model[i].fixtures.date.substring(14, 16)))-DateTime.now().minute;
 
-//print(minutes);
-      if(toDay &&hour+2>0&&false ) {
-        print('${model[i].teams.homeName}:${hour+2}');
-        print('${model[i].teams.homeName}:${minutes}');
+      if(toDay &&hour+2>0 ) {
+
 
         Timer(Duration(hours: hour,minutes: minutes), () {
           emit(MatchesLiveState());
@@ -388,8 +386,8 @@ print('time to start live');
     if (seconds > 5400) {
       countUpTimer![index].cancel();
     } else {
-      if(seconds%600==0){
-        print('minutes + 10');
+      if(seconds%120==0){
+        print('minutes + 2');
         liveMatch(model[index].fixtures.idFixtures);
       }
       matchDuration[model[index].fixtures.idFixtures] = Duration(seconds: seconds);

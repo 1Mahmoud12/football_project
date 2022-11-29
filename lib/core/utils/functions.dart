@@ -184,6 +184,8 @@ Widget matches(List <ResponseFixtures>model,index,context,{ bool live=false}){
   return InkWell(
     onTap: ()async{
       MatchesCubit.get(context).fixturesAndLineup(model[index].fixtures.idFixtures);
+      MatchesCubit.get(context).getStatistics(model[index].fixtures.idFixtures);
+      MatchesCubit.get(context).getEvents(model[index].fixtures.idFixtures);
 
 
       navigatorReuse(context, Match(idFixtures:  model[index].fixtures.idFixtures,responseFixtures:  model[index]));
