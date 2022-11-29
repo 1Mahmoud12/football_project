@@ -9,10 +9,12 @@ import '../../../core/utils/functions.dart';
 
 
 class MatchesTeam extends StatelessWidget {
-  const MatchesTeam({Key? key}) : super(key: key);
+   const MatchesTeam({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    double heightMedia=MediaQuery.of(context).size.height;
+
     var model =RemoteDataSource.modelMatchesForTeam;
    // MatchesCubit.get(context).timeToStartLive(RemoteDataSource.modelMatchesForTeam, context);
     return BlocBuilder<MatchesCubit,MatchesState>(
@@ -20,16 +22,16 @@ class MatchesTeam extends StatelessWidget {
           return Scaffold(
             body: Column(
               children: [
-                SizedBox(
-                  height: 600,
-                  child: ConditionalBuilder(
-                      condition: model.isNotEmpty,
-                      builder: (context)=>ListView.builder(
+                ConditionalBuilder(
+                    condition: model.isNotEmpty,
+                    builder: (context)=>SizedBox(
+                      height: heightMedia*.78,
+                      child: ListView.builder(
                           physics: const BouncingScrollPhysics(),
                           itemBuilder:(context,index)=> matches(sortMatches(model) ,index,context),
                           itemCount: sortMatches(model).length
-                      ), fallback: (context)=>const Center(child: CircularProgressIndicator(),)),
-                ),
+                      ),
+                    ), fallback: (context)=>indicator()),
               ],
             ),
           );

@@ -3,6 +3,7 @@
 import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:liquid_progress_indicator/liquid_progress_indicator.dart';
 import 'package:sofa_sccore/data/data_source/remote_data_source.dart';
 import 'package:sofa_sccore/data/models/champions_model.dart';
 import 'package:sofa_sccore/domain/entities/league/standing_league.dart';
@@ -342,4 +343,21 @@ int selectNotStarted(List<ResponseFixtures> model){
   return item;
   }
 
-
+Widget indicator(){
+  return SizedBox(
+    height: 50,
+    child: Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: LiquidLinearProgressIndicator(
+        value: 0.6, // Defaults to 0.5.
+        valueColor: const AlwaysStoppedAnimation(Colors.pink), // Defaults to the current Theme's accentColor.
+        backgroundColor: Colors.white, // Defaults to the current Theme's backgroundColor.
+        borderColor: Colors.red[100],
+        borderWidth: 5.0,
+        borderRadius: 12.0,
+        direction: Axis.vertical, // The direction the liquid moves (Axis.vertical = bottom to top, Axis.horizontal = left to right). Defaults to Axis.horizontal.
+        center: const Text("Loading..."),
+      ),
+    ),
+  );
+}

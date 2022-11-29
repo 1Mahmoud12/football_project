@@ -9,6 +9,7 @@ import 'package:sofa_sccore/data/models/details_match/events_model.dart';
 import 'package:sofa_sccore/presentation/bloc/cubit.dart';
 import 'package:sofa_sccore/presentation/bloc/states.dart';
 
+import '../../../core/utils/functions.dart';
 import '../../../data/data_source/remote_data_source.dart';
 import '../../../domain/entities/details_match/fixtures_lineup.dart';
 import '../../../domain/entities/fixtures.dart';
@@ -173,19 +174,7 @@ class Events extends StatelessWidget {
                         child: const Center(child: Text('No Events Yet')),
                       );
                 },
-                fallback: (context)=>SizedBox(
-                  height: 30,
-                  child: LiquidLinearProgressIndicator(
-                    value: 0.6, // Defaults to 0.5.
-                    valueColor: const AlwaysStoppedAnimation(Colors.pink), // Defaults to the current Theme's accentColor.
-                    backgroundColor: Colors.white, // Defaults to the current Theme's backgroundColor.
-                    borderColor: Colors.red[100],
-                    borderWidth: 5.0,
-                    borderRadius: 12.0,
-                    direction: Axis.vertical, // The direction the liquid moves (Axis.vertical = bottom to top, Axis.horizontal = left to right). Defaults to Axis.horizontal.
-                    center: const Text("Loading..."),
-                  ),
-                ),
+                fallback: (context)=>indicator()
               )
             ],
           ),

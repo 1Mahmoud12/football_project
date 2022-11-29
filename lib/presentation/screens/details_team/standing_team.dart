@@ -73,7 +73,7 @@ class _StandingTeamState extends State<StandingTeam> {
 
               ;
             },
-            fallback: (context)=> const Center(child: CircularProgressIndicator(),),
+            fallback: (context)=> indicator(),
           ),
         );
         });

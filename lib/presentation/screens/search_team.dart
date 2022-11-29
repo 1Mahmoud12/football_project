@@ -38,8 +38,9 @@ var searchController=TextEditingController();
                   },
                   decoration: InputDecoration(
 
-                      label: Text('Team',style: Theme.of(context).textTheme.bodyText1!.copyWith(fontSize: 15)),
-                      hintText: 'Input Your Team',
+                      //label: Text('  Team',style: Theme.of(context).textTheme.bodyText1!.copyWith(fontSize: 15)),
+                      //prefix: const Icon(Icons.search,color: Colors.white,size: 19),
+                      hintText: '🔍 Input Your Team',
                     hintStyle: Theme.of(context).textTheme.bodyText1,
                     border: OutlineInputBorder(
 

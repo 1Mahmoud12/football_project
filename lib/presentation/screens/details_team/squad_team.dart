@@ -17,8 +17,7 @@ class SquadTeam extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var widthMedia=MediaQuery.of(context).size.width;
-    //MatchesCubit.get(context).getSquad(idTeam);
-    //MatchesCubit.get(context).championsTeam(leagueId,season: DateTime.now().year.toString());
+
 
     return BlocConsumer<MatchesCubit,MatchesState>(
       listener: (context,state){},
@@ -39,7 +38,7 @@ class SquadTeam extends StatelessWidget {
                     ],
                   );
                 },
-                fallback: (context) => const Center(child: CircularProgressIndicator(),)
+                fallback: (context) => indicator()
             ),);
         });
   }
@@ -78,7 +77,6 @@ class SquadTeam extends StatelessWidget {
       padding: const EdgeInsets.all(10.0),
       child: InkWell(
         onTap: (){
-          print(model.player[index].id.toString());
           MatchesCubit.get(context).statisticsPlayer(model.player[index].id,season: DateTime.now().year.toString());
           MatchesCubit.get(context).transferPlayer(model.player[index].id);
           navigatorReuse(context, PlayerInfo(idPlayer: model.player[index].id, idTeam: model.team.id));

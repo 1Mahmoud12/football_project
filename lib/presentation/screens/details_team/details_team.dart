@@ -73,7 +73,7 @@ class DetailsTeam extends StatelessWidget {
             ),
               );
             },
-            fallback: (context)=>const Center(child: CircularProgressIndicator()),
+            fallback: (context)=>indicator(),
           ),
         );
       },
