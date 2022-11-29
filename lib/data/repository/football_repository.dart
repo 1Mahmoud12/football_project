@@ -97,7 +97,7 @@ class FootballRepository implements BaseFootballTeams
   }
 
   @override
-  Future<List<EventsEntity>> getEvents(int idFixtures) async{
+  Future<void> getEvents(int idFixtures) async{
     return await baseRemoteDataSource.getEvents(idFixtures);
 
   }

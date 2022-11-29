@@ -28,5 +28,5 @@ abstract class BaseFootballTeams{
   Future<List<Transfers?>> transferPlayer(int idPlayer);
   Future<LiveEntity> liveMatch(int idFixtures);
   Future<List<StatisticsMatch>> getStatistics(int idFixtures);
-  Future<List<EventsEntity>> getEvents(int idFixtures);
+  Future<void> getEvents(int idFixtures);
 }

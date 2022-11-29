@@ -1,5 +1,6 @@
 import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:sofa_sccore/core/utils/colors.dart';
@@ -495,9 +496,10 @@ class DetailsOfMatchesTwo extends StatelessWidget {
   Widget substitutionPlayers(widthMedia,FixturesAndLineup model,idTeam,context){
     double heightMedia=MediaQuery.of(context).size.height;
     return SizedBox(
-      height: heightMedia*.9,
+      height: heightMedia*.98,
       child: ListView.separated(
           physics:const BouncingScrollPhysics(),
+          scrollDirection: Axis.vertical,
           itemBuilder:(context,index)=> substitution( model,index,widthMedia,context,idTeam),
           separatorBuilder: (context,index)=>separator(widthMedia),
           itemCount: model.substitutes.length),

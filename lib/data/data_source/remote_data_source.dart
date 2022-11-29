@@ -36,7 +36,7 @@ abstract class BaseRemoteDataSource {
   Future<List<TransferModel?>> transferPlayer(int idPlayer);
   Future<LiveMatchModel> liveMatch(int idFixture);
   Future<List<StatisticsMatch>> getStatistics(int idFixture);
-  Future<List<EventsModel>> getEvents(int idFixture);
+  Future<void> getEvents(int idFixture);
 
 
 }
@@ -310,7 +310,7 @@ static  LiveMatchModel? liveModel;
   static List<EventsModel>? eventsModel;
 
   @override
-  Future<List<EventsModel>> getEvents(int idFixture) async{
+  Future<void> getEvents(int idFixture) async{
     final request = await http.get(
         Uri.parse(
             '${Constants.api}/${Constants.endPoints[10]}?fixture=$idFixture'),
@@ -328,7 +328,7 @@ static  LiveMatchModel? liveModel;
       });
 
     }
-    return  eventsModel??[];
+
   }
 
 
