@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:sofa_sccore/data/models/details_match/events_model.dart';
 import 'package:sofa_sccore/data/models/live_match_model.dart';
 import 'package:sofa_sccore/data/models/player/statistics_player_model.dart';
 import 'package:sofa_sccore/data/models/search_teams_model.dart';
@@ -10,11 +11,14 @@ import 'package:sofa_sccore/domain/entities/league/standing_league.dart';
 
 import '../../core/network/local.dart';
 import '../../core/utils/constants.dart';
+import '../../domain/entities/details_match/statistics_match.dart';
 import '../models/champions_model.dart';
-import '../models/fixture_lineup_model.dart';
+import '../models/details_match/fixture_lineup_model.dart';
 import '../models/squad_model.dart';
 import '../models/standing_model.dart';
 import 'package:intl/intl.dart';
+
+import '../models/details_match/statistics_model.dart';
 
 
 abstract class BaseRemoteDataSource {
@@ -22,7 +26,7 @@ abstract class BaseRemoteDataSource {
   Future<List<SearchTeamsModel>> searchTeam(String search);
   Future<SearchTeamsModel?> infoVenueTeam(int idTeam);
   Future<List<ResponseFixtures>> matchesForTeam(int team,int season);
-  Future<List<ResponseFixtures>> getAllGames(String season, String fromDate,String toDate);
+  Future<List<ResponseFixtures>> getAllGames(int season, String fromDate,String toDate);
   Future<List<FixtureAndLineupModel>> getFixturesAndLineup(dynamic id);
   Future<SquadModel> getSquad(int id);
   Future<StandingTeamModel> standingLeague(int leagueId,String season);
@@ -31,6 +35,9 @@ abstract class BaseRemoteDataSource {
   Future<StatisticsPlayerModel?> statisticsPlayer(int idPlayer,String season);
   Future<List<TransferModel?>> transferPlayer(int idPlayer);
   Future<LiveMatchModel> liveMatch(int idFixture);
+  Future<List<StatisticsMatch>> getStatistics(int idFixture);
+  Future<List<EventsModel>> getEvents(int idFixture);
+
 
 }
 
@@ -73,14 +80,14 @@ class RemoteDataSource implements BaseRemoteDataSource {
   static  List<ResponseFixtures>? modelOfFixtures;
   static String? today;
   @override
-  Future<List<ResponseFixtures>> getAllGames(String season, String fromDate,String toDate) async {
+  Future<List<ResponseFixtures>> getAllGames(int season, String fromDate,String toDate) async {
     modelOfFixtures = [];
     List<String> storeModel=[];
 
     for (int i = 0; i < Constants.leagueId.length; i++) {
       final request = await http.get(
           Uri.parse(
-              '${Constants.api}/${Constants.endPoints[1]}?league=${Constants.leagueId[i].toString()}&from=$fromDate&to=$toDate&season=$season'),
+              '${Constants.api}/${Constants.endPoints[1]}?league=${Constants.leagueId[i].toString()}&from=$fromDate&to=$toDate&season=$season&timezone=${Constants.timezone}'),
           headers: Constants.headers);
       if (jsonDecode(request.body)['results'] > 0) {
         today=DateFormat('yyyy-MM-dd').format(DateTime.now()) ;
@@ -113,10 +120,14 @@ class RemoteDataSource implements BaseRemoteDataSource {
           Uri.parse(
               '${Constants.api}/${Constants.endPoints[2]}?fixture=$id'),
           headers: Constants.headers);
+    print(id);
       if (jsonDecode(request.body)['results'] > 0) {
         jsonDecode(request.body)['response'].forEach((element) {
           fixturesAndLineup.add(FixtureAndLineupModel(element));
         });
+      }else{
+        print('result of jason lineUp : ${jsonDecode(request.body)['results']}');
+
       }
 
     //print(fixturesAndLineup[0].name);
@@ -274,6 +285,50 @@ static  LiveMatchModel? liveModel;
 
     }
     return changeLeaguesModel!;
+  }
+  static List<StatisticsMatch>? statisticsMatch;
+
+
+  @override
+  Future <List<StatisticsMatch>> getStatistics(int idFixture) async{
+    final request = await http.get(
+        Uri.parse(
+            '${Constants.api}/${Constants.endPoints[9]}?fixture=$idFixture'),
+        headers: Constants.headers);
+    if (jsonDecode(request.body)['results'] > 0) {
+      statisticsMatch=[];
+      print(jsonDecode(request.body)['response'][0]['statistics']);
+
+
+      jsonDecode(request.body)['response'].forEach((element){
+        statisticsMatch!.add(StatisticsModel(element));
+      });
+
+    }
+    return  statisticsMatch??[];
+  }
+  static List<EventsModel>? eventsModel;
+
+  @override
+  Future<List<EventsModel>> getEvents(int idFixture) async{
+    final request = await http.get(
+        Uri.parse(
+            '${Constants.api}/${Constants.endPoints[10]}?fixture=$idFixture'),
+        headers: Constants.headers);
+
+    if (jsonDecode(request.body)['results'] > 0) {
+      eventsModel=[];
+      //print(jsonDecode(request.body)['response']);
+
+
+      jsonDecode(request.body)['response'].forEach((element){
+        if(element!=null) {
+          eventsModel!.add(EventsModel(element));
+        }
+      });
+
+    }
+    return  eventsModel??[];
   }
 
 

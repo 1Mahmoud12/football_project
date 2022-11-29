@@ -7,7 +7,7 @@ class GetAllGamesUseCase
 
   GetAllGamesUseCase(this.teamEngland);
 
-  Future<List<ResponseFixtures>> execute(String season,String fromDate,String toDate)async {
+  Future<List<ResponseFixtures>> execute(int season,String fromDate,String toDate)async {
     return await teamEngland.getAllGames(season, fromDate,toDate);
   }
 }

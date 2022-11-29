@@ -52,6 +52,11 @@ class MatchesTransferPlayerLoadingState extends MatchesState{}
 class MatchesTransferPlayerSuccessState extends MatchesState{}
 class MatchesTransferPlayerErrorState extends MatchesState{}
 
+class MatchesGetEventsLoadingState extends MatchesState{}
+class MatchesGetEventsSuccessState extends MatchesState{}
+class MatchesGetEventsErrorState extends MatchesState{}
+
+
 class MatchesLiveLoadingState extends MatchesState{}
 class MatchesLiveSuccessState extends MatchesState{}
 class MatchesLiveErrorState extends MatchesState{}
@@ -66,6 +71,12 @@ class MatchesTeamsFavoritesSuccessState extends MatchesState{}
 class MatchesTeamsFavoritesRemoveState extends MatchesState{}
 class MatchesTeamsFavoritesErrorState extends MatchesState{}
 class MatchesSelectFavoritesState extends MatchesState{}
+
+// search LEAGUE
+class MatchesGetStatisticsLoadingState extends MatchesState{}
+class MatchesGetStatisticsSuccessState extends MatchesState{}
+class MatchesGetStatisticsErrorState extends MatchesState{}
+
 
 // Matches Live
 class MatchesLiveState extends MatchesState{}

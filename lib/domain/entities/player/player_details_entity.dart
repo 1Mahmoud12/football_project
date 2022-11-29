@@ -1,10 +1,10 @@
 class PlayerDetailsEntities {
  late PlayerInfo playerInfo;
- late Statistics statistics;
+ late StatisticsEntity statistics;
 
 PlayerDetailsEntities(Map<String,dynamic>json){
   playerInfo=PlayerInfo(json['player']);
-  statistics=Statistics(json['statistics'][0]);
+  statistics=StatisticsEntity(json['statistics'][0]);
 }
 }
 
@@ -32,7 +32,7 @@ class PlayerInfo {
   }
 }
 
-class Statistics {
+class StatisticsEntity {
   Team? team;
   League? league;
   Games? game;
@@ -47,7 +47,7 @@ class Statistics {
   Cards? card;
   Penalty? penalty;
 
-  Statistics(Map<String,dynamic>json){
+  StatisticsEntity(Map<String,dynamic>json){
     team=Team(json['team']);
     league=League(json['league']);
     game=Games(json['games']);

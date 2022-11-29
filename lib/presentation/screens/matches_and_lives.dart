@@ -23,10 +23,8 @@ class MatchesAndLives extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     if (RemoteDataSource.modelOfFixtures == null) {
-      MatchesCubit.get(context).allGames(
-          DateTime.now().year.toString(),
-          DateTime.now().toString().substring(0, 10),
-          DateTime.now().add(const Duration(days: 7)).toString().substring(0, 10));
+      MatchesCubit.get(context).allGames(DateTime.now().year,Constants.fromDate,Constants.toDate);
+
     } else if (RemoteDataSource.modelOfFixtures != null &&
         MatchesCubit.get(context).countAllGames == 0) {
       MatchesCubit.get(context).sortModel=sortMatches(RemoteDataSource.modelOfFixtures!);
@@ -75,46 +73,51 @@ class MatchesAndLives extends StatelessWidget {
           ),
           body: SingleChildScrollView(
             child: ConditionalBuilder(
-                condition: RemoteDataSource.modelOfFixtures!.isNotEmpty,
-                builder: (context) => SingleChildScrollView(
-                      child: Column(
-                        children: [
-                          TextButton(
-                              onPressed: () {
-                                MatchesCubit.get(context).allGames(
-                                  DateTime.now().year.toString(),
-                                  DateTime.now().add(const Duration(days: -7)).toString().substring(0, 10),
-                                  DateTime.now().add(const Duration(days: -1)).toString().substring(0, 10),
-                                );
-                              },
-                              child: const Text('SHOW LAST 7 DAYS')),
-                          SizedBox(
-                            height: heightMedia * .81,
-                            child: RefreshIndicator(
-                              edgeOffset: 100.0,
-                              onRefresh: () async {
-                                MatchesCubit.get(context).allGames(
-                                    DateTime.now().year.toString(),
-                                    DateTime.now().toString().substring(0, 10),
-                                    DateTime.now().add(const Duration(days: 7)).toString().substring(0, 10));
-                              },
-                              child: ListView.builder(
-                                  physics: const BouncingScrollPhysics(),
-                                  itemBuilder: (ctx, index) {
-                                    return matches(sortMatches( RemoteDataSource.modelOfFixtures!), index, context, live: MatchesCubit.get(context).liveDate[index]);
-                                  },
-                                  itemCount: RemoteDataSource.modelOfFixtures!.length),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                fallback: (context) => SizedBox(
+                condition: state is MatchesGetAllGamesLoadingState,
+                builder: (context) =>SizedBox(
                     width: double.infinity,
                     height: heightMedia * 5,
                     child: LoadingScreen(
                       enabled: enabled,
-                    ))),
+                    )),
+                fallback: (context) =>  ConditionalBuilder(
+                  condition: RemoteDataSource.modelOfFixtures!.isNotEmpty,
+                  builder: (context)=> SingleChildScrollView(
+                    child: Column(
+                      children: [
+                        TextButton(
+                            onPressed: () {
+                              MatchesCubit.get(context).allGames(DateTime.now().year,
+                                  DateTime.now().add(const Duration(days: -7)).toString().substring(0, 10),
+                                  DateTime.now().add(const Duration(days: -1)).toString().substring(0, 10));
+                            },
+                            child: const Text('SHOW LAST 7 DAYS')),
+                        SizedBox(
+                          height: heightMedia * .81,
+                          child: RefreshIndicator(
+                            edgeOffset: 100.0,
+                            onRefresh: () async {
+                                  MatchesCubit.get(context).allGames(DateTime.now().year,Constants.fromDate,Constants.toDate);
+                            },
+                            child: ListView.builder(
+                                physics: const BouncingScrollPhysics(),
+                                itemBuilder: (ctx, index) {
+                                  return matches(sortMatches( RemoteDataSource.modelOfFixtures!), index, context, live: MatchesCubit.get(context).liveDate[index]);
+                                },
+                                itemCount: RemoteDataSource.modelOfFixtures!.length),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  fallback: (context)=>Column(
+
+                    children: [
+                      Image.asset('assets/no_matches.png',height: heightMedia*.8),
+                    ],
+                  ),
+                )
+            ),
           ),
           floatingActionButton: FloatingActionButton(
             backgroundColor: AppColors.indigo,
@@ -235,9 +238,7 @@ class MatchesAndLives extends StatelessWidget {
 
                                                             if (newLeagues.isNotEmpty) {
                                                               Constants.leagueId = newLeagues;
-                                                              MatchesCubit.get(context).allGames(DateTime.now().year.toString(),
-                                                                  DateTime.now().add(const Duration(days: -1)).toString().substring(0, 10),
-                                                                  DateTime.now().add(const Duration(days: 7)).toString().substring(0, 10));
+                                                              MatchesCubit.get(context).allGames(DateTime.now().year,Constants.fromDate,Constants.toDate);
                                                             }
                                                             Navigator.pop(context);
                                                           },

@@ -110,7 +110,7 @@ class DetailsTeam extends StatelessWidget {
           padding: const EdgeInsets.all(8.0),
           child: Row(
             children: [
-              Text(AppString.info,style: Theme.of(context).textTheme.bodyText1!.copyWith(fontSize: 20),),
+              Text(AppString.info,style: Theme.of(context).textTheme.bodyText1!.copyWith(fontSize: widthMedia*.05),),
             ],
           ),
         ),
@@ -119,9 +119,9 @@ class DetailsTeam extends StatelessWidget {
           padding: const EdgeInsets.all(8.0),
           child: Row(
             children: [
-              Text(AppString.foundationDate,style: Theme.of(context).textTheme.bodyText1!.copyWith(fontSize: 15),),
+              Text(AppString.foundationDate,style: Theme.of(context).textTheme.bodyText1!.copyWith(fontSize: widthMedia*.04),),
               const Spacer(),
-              Text(modelInfo.teamJson.founded.toString(),style: Theme.of(context).textTheme.bodyText2!.copyWith(fontSize: 15),),
+              Text(modelInfo.teamJson.founded.toString(),style: Theme.of(context).textTheme.bodyText2!.copyWith(fontSize: widthMedia*.04),),
 
             ],
           ),
@@ -131,9 +131,9 @@ class DetailsTeam extends StatelessWidget {
           padding: const EdgeInsets.all(8.0),
           child: Row(
             children: [
-              Text(AppString.country,style: Theme.of(context).textTheme.bodyText1!.copyWith(fontSize: 15),),
+              Text(AppString.country,style: Theme.of(context).textTheme.bodyText1!.copyWith(fontSize: widthMedia*.04),),
               const Spacer(),
-              Text(modelInfo.teamJson.country.toString(),style: Theme.of(context).textTheme.bodyText2!.copyWith(fontSize: 15),),
+              Text(modelInfo.teamJson.country.toString(),style: Theme.of(context).textTheme.bodyText2!.copyWith(fontSize: widthMedia*.04),),
 
             ],
           ),
@@ -153,9 +153,9 @@ class DetailsTeam extends StatelessWidget {
           padding: const EdgeInsets.all(8.0),
           child: Row(
             children: [
-              Text(AppString.nameVenue,style: Theme.of(context).textTheme.bodyText1!.copyWith(fontSize: 15),),
+              Expanded(flex:1,child: Text(AppString.nameVenue,style: Theme.of(context).textTheme.bodyText1!.copyWith(fontSize: widthMedia*.04),)),
               const Spacer(),
-              Text(modelInfo.venueJson.name.toString(),style: Theme.of(context).textTheme.bodyText2!.copyWith(fontSize: 15),),
+              Expanded(flex:3,child: Text(modelInfo.venueJson.name.toString(),style: Theme.of(context).textTheme.bodyText2!.copyWith(fontSize: widthMedia*.04),)),
 
             ],
           ),
@@ -165,9 +165,9 @@ class DetailsTeam extends StatelessWidget {
           padding: const EdgeInsets.all(8.0),
           child: Row(
             children: [
-              Text(AppString.address,style: Theme.of(context).textTheme.bodyText1!.copyWith(fontSize: 15),),
+              Expanded(flex:1,child: Text(AppString.address,style: Theme.of(context).textTheme.bodyText1!.copyWith(fontSize: widthMedia*.04),)),
               const Spacer(),
-              Text(modelInfo.venueJson.address.toString(),style: Theme.of(context).textTheme.bodyText2!.copyWith(fontSize: 15),),
+              Expanded(flex:3,child: Text(modelInfo.venueJson.address.toString(),style: Theme.of(context).textTheme.bodyText2!.copyWith(fontSize: widthMedia*.04),)),
 
             ],
           ),
@@ -177,9 +177,9 @@ class DetailsTeam extends StatelessWidget {
           padding: const EdgeInsets.all(8.0),
           child: Row(
             children: [
-              Text(AppString.capacity,style: Theme.of(context).textTheme.bodyText1!.copyWith(fontSize: 15),),
+              Text(AppString.capacity,style: Theme.of(context).textTheme.bodyText1!.copyWith(fontSize: widthMedia*.04),),
               const Spacer(),
-              Text(modelInfo.venueJson.capacity.toString(),style: Theme.of(context).textTheme.bodyText2!.copyWith(fontSize: 15),),
+              Text(modelInfo.venueJson.capacity.toString(),style: Theme.of(context).textTheme.bodyText2!.copyWith(fontSize: widthMedia*.04),),
 
             ],
           ),

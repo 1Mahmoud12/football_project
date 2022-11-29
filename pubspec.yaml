@@ -37,7 +37,7 @@ dependencies:
   dio: ^4.0.6
   http: ^0.13.5
   conditional_builder_null_safety: ^0.0.6
-  flutter_svg: ^0.20.0-nullsafety.3
+  flutter_svg: ^1.1.6
   intl: ^0.17.0
   bloc: ^8.1.0
   flutter_bloc: ^8.1.1
@@ -49,6 +49,8 @@ dependencies:
   scrollable_positioned_list: ^0.3.5
   shimmer: ^2.0.0
   flutter_launcher_icons: ^0.10.0
+  hexcolor: ^3.0.1
+  liquid_progress_indicator: ^0.4.0
 
 flutter_icons:
   android: true

@@ -17,7 +17,6 @@ import 'package:sofa_sccore/presentation/bloc/states.dart';
 import 'package:sofa_sccore/presentation/screens/matches_and_lives.dart';
 
 import 'core/bloc_observer.dart';
-import 'core/utils/functions.dart';
 import 'core/utils/services/get_it.dart';
 
 void main() async{
@@ -56,7 +55,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
 
     return BlocProvider(
-      create: (context)=>MatchesCubit(seGet(),seGet(),seGet(),seGet(),seGet(), seGet(),seGet(),seGet(),seGet(),seGet(),seGet(),seGet(),)
+      create: (context)=>MatchesCubit(seGet(),seGet(),seGet(),seGet(),seGet(),seGet(),seGet(), seGet(),seGet(),seGet(),seGet(),seGet(),seGet(),seGet(),)
         ..mode(mode: mode),
       child: BlocBuilder<MatchesCubit,MatchesState>(
         builder: (context,state) {

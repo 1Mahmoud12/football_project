@@ -65,7 +65,8 @@ class _StandingTeamState extends State<StandingTeam> {
                   Expanded(
                     child: ListView.builder(
                       itemBuilder: (context,index) {
-                        return model!.nameLeague=='UEFA Champions League'? tableChampions(model, index,context):tableLeague(model, index,context);
+
+                        return model!.nameLeague=='UEFA Champions League'||model.nameLeague=='World Cup' ? tableChampions(model, index,context):tableLeague(model, index,context);
                       },
                       itemCount:model!.standingsTeam.length ,),
                   ),],)
@@ -113,11 +114,11 @@ class _StandingTeamState extends State<StandingTeam> {
 
           setState(() {
             value0 = newValue.toString();
-            RemoteDataSource.modelChampionsTeam.forEach((element) {
+            for (var element in RemoteDataSource.modelChampionsTeam) {
               if(element.league!.name==newValue.toString()){
                   MatchesCubit.get(context).standing(element.league!.id, DateTime.now().year.toString());
               }
-            });
+            }
           });
         },
       dropdownColor: Colors.black,
@@ -134,7 +135,7 @@ class _StandingTeamState extends State<StandingTeam> {
         children: [
           if(model.standingsTeam[index].rank<=4)
             Expanded(
-              flex: 0,
+              flex: 1,
               child: CircleAvatar(
                   radius: 10,backgroundColor:AppColors.circleAvatarColor,
                   child: Text(model.standingsTeam[index].rank.toString(),style: Theme.of(context).textTheme.bodyText1!.copyWith(fontSize: 15),)),
@@ -228,12 +229,18 @@ class _StandingTeamState extends State<StandingTeam> {
 
               Expanded(
                 flex: 1,
-                child: CircleAvatar(
-                    radius: 15,backgroundColor: Colors.white.withOpacity(0),
-                    child: Image(image: NetworkImage(model.standingsTeam[index].logoTeam))),
+                child: Padding(
+                  padding: const EdgeInsets.only(left: 4.0),
+                  child: CircleAvatar(
+                      radius: 15,backgroundColor: Colors.white.withOpacity(0),
+                      child: Image(image: NetworkImage(model.standingsTeam[index].logoTeam))),
+                ),
               ),
               Expanded(flex: 2,
-                  child: Text(model.standingsTeam[index].nameTeam,style: Theme.of(context).textTheme.bodyText1!.copyWith(fontSize: 15))),
+                  child: Padding(
+                    padding: const EdgeInsets.only(left: 4.0),
+                    child: Text(model.standingsTeam[index].nameTeam,style: Theme.of(context).textTheme.bodyText1!.copyWith(fontSize: 15)),
+                  )),
               Expanded(flex: 1,
                   child: Text(model.standingsTeam[index].points.toString(),textAlign: TextAlign.end,style:Theme.of(context).textTheme.bodyText1)),
               Expanded(flex: 1,

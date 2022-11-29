@@ -6,10 +6,10 @@ import 'package:intl/intl.dart';
 import 'package:sofa_sccore/data/data_source/remote_data_source.dart';
 import 'package:sofa_sccore/data/models/champions_model.dart';
 import 'package:sofa_sccore/domain/entities/league/standing_league.dart';
+import 'package:sofa_sccore/presentation/screens/details_match/match.dart';
 
 import '../../domain/entities/fixtures.dart';
 import '../../presentation/bloc/cubit.dart';
-import '../../presentation/screens/line_up_match.dart';
 import '../../presentation/screens/details_team/team.dart';
 import 'colors.dart';
 
@@ -29,7 +29,7 @@ String subStringForDate({required String date }){
 
 
 String subStringForTime({required String time}) {
-  int checkAmOrPm = int.parse(time.substring(11, 13)) + 2;
+  int checkAmOrPm = int.parse(time.substring(11, 13)) ;
   if (checkAmOrPm > 12) {
     return '${(checkAmOrPm - 12)}${time.substring(13, 16)} Pm';
   } else {
@@ -184,7 +184,8 @@ Widget matches(List <ResponseFixtures>model,index,context,{ bool live=false}){
     onTap: ()async{
       MatchesCubit.get(context).fixturesAndLineup(model[index].fixtures.idFixtures);
 
-      navigatorReuse(context, DetailsOfMatches(fixturesId: model[index].fixtures.idFixtures,responseFixture: model[index]));
+
+      navigatorReuse(context, Match(idFixtures:  model[index].fixtures.idFixtures,responseFixtures:  model[index]));
     },
     child: Padding(
       padding: const EdgeInsets.only(left: 8.0,top: 8.0,right: 8.0),
@@ -216,7 +217,9 @@ Widget matches(List <ResponseFixtures>model,index,context,{ bool live=false}){
                     Expanded(
                       child: InkWell(
                         onTap: (){
-                          MatchesCubit.get(context).matchesForTeamFun( model[index].teams.idHome, 2022);
+                          MatchesCubit.get(context).matchesForTeamFun( model[index].teams.idHome, 2022)
+                              .then((value) => MatchesCubit.get(context).timeToStartLive(RemoteDataSource.modelMatchesForTeam, '2022'));
+
                           MatchesCubit.get(context).championsTeam(model[index].teams.idHome);
                           MatchesCubit.get(context).detailsVenueTeam( model[index].teams.idHome);
                           MatchesCubit.get(context).getSquad( model[index].teams.idHome);
@@ -286,7 +289,8 @@ Widget matches(List <ResponseFixtures>model,index,context,{ bool live=false}){
                     Expanded(
                       child: InkWell(
                         onTap: (){
-                          MatchesCubit.get(context).championsTeam(model[index].teams.idAway);
+                          MatchesCubit.get(context).championsTeam(model[index].teams.idAway)
+                              .then((value) => MatchesCubit.get(context).timeToStartLive(RemoteDataSource.modelMatchesForTeam, '2022'));
                           MatchesCubit.get(context).detailsVenueTeam( model[index].teams.idAway);
                           MatchesCubit.get(context).matchesForTeamFun( model[index].teams.idAway, 2022);
                           MatchesCubit.get(context).getSquad( model[index].teams.idAway);

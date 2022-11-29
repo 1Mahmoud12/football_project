@@ -33,16 +33,10 @@ class Favorites extends StatelessWidget {
           body: ConditionalBuilder(
             condition: MatchesCubit.get(context).countListFavorites == Constants.favorites.length ,
             builder: (context) {
-              //MatchesCubit.get(context).timeToStartLive(model, context);
+              MatchesCubit.get(context).timeToStartLive(model, context);
 
             index2 = selectNotStarted(sortMatches(MatchesCubit.get(context).modelFavorites));
-         /*     model.forEach((element) {
-                for(int i=0;i<model.length;i++){
-                  if(element.fixtures.idFixtures==model[i].fixtures.idFixtures){
-                    model.remove(element);
-                  }
-                }
-              });*/
+
               if(MatchesCubit.get(context).countListFavorites!=0) {
                 Future.delayed(const Duration(seconds: 1),() async=> await scrollToIndex(),);
               }

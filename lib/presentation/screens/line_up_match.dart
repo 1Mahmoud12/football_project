@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sofa_sccore/core/utils/colors.dart';
 import 'package:sofa_sccore/data/data_source/remote_data_source.dart';
-import 'package:sofa_sccore/domain/entities/fixtures_lineup.dart';
+import 'package:sofa_sccore/domain/entities/details_match/fixtures_lineup.dart';
 import 'package:sofa_sccore/presentation/screens/details_player/player.dart';
 import 'package:sofa_sccore/presentation/screens/details_team/team.dart';
 
@@ -26,6 +26,8 @@ class DetailsOfMatches extends StatelessWidget {
         builder: (context, state) {
           var widthMedia = MediaQuery.of(context).size.width;
           var heightMedia = MediaQuery.of(context).size.height;
+
+
 
           return Scaffold(
               appBar: AppBar(),
@@ -81,7 +83,7 @@ class DetailsOfMatches extends StatelessWidget {
                                           children: [
                                             Image(
                                               image: NetworkImage(responseFixture.teams.homeLogo),
-                                              height: 50,
+                                              height: heightMedia*.06,
                                               width: widthMedia * .08,
                                             ),
                                             SizedBox(
@@ -148,7 +150,7 @@ class DetailsOfMatches extends StatelessWidget {
                                           children: [
                                             Image(
                                               image: NetworkImage(responseFixture.teams.awayLogo),
-                                              height: 50,
+                                              height: heightMedia*.06,
                                               width: widthMedia * .08,
                                             ),
                                             SizedBox(
@@ -203,6 +205,7 @@ class DetailsOfMatches extends StatelessWidget {
                                       children: [
                                         Expanded(
                                           child: positionPlayerLineup2(
+                                            context: context,
                                               widthMedia: widthMedia,
                                               heightMedia:heightMedia,
                                               namePlayer: model[0].startXI[1].name,
@@ -210,6 +213,7 @@ class DetailsOfMatches extends StatelessWidget {
                                         ),
                                         Expanded(
                                           child: positionPlayerLineup2(
+                                              context: context,
                                               widthMedia: widthMedia,
                                               heightMedia: heightMedia,
                                               namePlayer: model[0].startXI[2].name,
@@ -217,6 +221,7 @@ class DetailsOfMatches extends StatelessWidget {
                                         ),
                                         Expanded(
                                           child: positionPlayerLineup2(
+                                              context: context,
                                               widthMedia: widthMedia,
                                               heightMedia:heightMedia,
                                               namePlayer: model[0].startXI[3].name,
@@ -224,6 +229,7 @@ class DetailsOfMatches extends StatelessWidget {
                                         ),
                                         Expanded(
                                           child: positionPlayerLineup2(
+                                              context: context,
                                               widthMedia: widthMedia,
                                               heightMedia: heightMedia,
                                               namePlayer: model[0].startXI[4].name,
@@ -235,6 +241,7 @@ class DetailsOfMatches extends StatelessWidget {
                                       children: [
                                         Expanded(
                                           child: positionPlayerLineup3(
+                                              context: context,
                                               widthMedia: widthMedia,
                                               namePlayer: model[0].startXI[5].name,
                                               numberPlayer: model[0].startXI[5].number,
@@ -242,6 +249,7 @@ class DetailsOfMatches extends StatelessWidget {
                                         ),
                                         Expanded(
                                           child: positionPlayerLineup3(
+                                              context: context,
                                               widthMedia: widthMedia,
                                               namePlayer: model[0].startXI[6].name,
                                               numberPlayer: model[0].startXI[6].number,
@@ -249,6 +257,7 @@ class DetailsOfMatches extends StatelessWidget {
                                         ),
                                         Expanded(
                                           child: positionPlayerLineup3(
+                                              context: context,
                                               widthMedia: widthMedia,
                                               namePlayer: model[0].startXI[7].name,
                                               numberPlayer: model[0].startXI[7].number,
@@ -256,6 +265,7 @@ class DetailsOfMatches extends StatelessWidget {
                                         ),
                                         Expanded(
                                           child: positionPlayerLineup3(
+                                              context: context,
                                               widthMedia: widthMedia,
                                               namePlayer: model[0].startXI[8].name,
                                               numberPlayer: model[0].startXI[8].number,
@@ -267,6 +277,7 @@ class DetailsOfMatches extends StatelessWidget {
                                       children: [
                                         Expanded(
                                           child: positionPlayerLineup4(
+                                              context: context,
                                               widthMedia: widthMedia,
                                               namePlayer: model[0].startXI[9].name,
                                               numberPlayer: model[0].startXI[9].number,
@@ -274,6 +285,7 @@ class DetailsOfMatches extends StatelessWidget {
                                         ),
                                         Expanded(
                                           child: positionPlayerLineup4(
+                                              context: context,
                                               widthMedia: widthMedia,
                                               namePlayer: model[0].startXI[10].name,
                                               numberPlayer: model[0].startXI[10].number,
@@ -292,17 +304,19 @@ class DetailsOfMatches extends StatelessWidget {
                                       children: [
                                         Expanded(
                                           child: positionPlayerLineup4(
+                                              context: context,
                                               widthMedia: widthMedia,
                                               namePlayer: model[1].startXI[9].name,
                                               numberPlayer: model[1].startXI[9].number,
-                                              heightMedia: heightMedia*.4,awayTeam: true),
+                                              heightMedia: heightMedia,awayTeam: true),
                                         ),
                                         Expanded(
                                           child: positionPlayerLineup4(
+                                              context: context,
                                               widthMedia: widthMedia,
                                               namePlayer: model[1].startXI[10].name,
                                               numberPlayer: model[1].startXI[10].number,
-                                              heightMedia: heightMedia*.4,awayTeam: true),
+                                              heightMedia: heightMedia,awayTeam: true),
                                         ),
 
                                       ],
@@ -311,6 +325,7 @@ class DetailsOfMatches extends StatelessWidget {
                                       children: [
                                         Expanded(
                                           child: positionPlayerLineup3(
+                                              context: context,
                                               widthMedia: widthMedia,
                                               namePlayer: model[1].startXI[5].name,
                                               numberPlayer: model[1].startXI[5].number,
@@ -318,6 +333,7 @@ class DetailsOfMatches extends StatelessWidget {
                                         ),
                                         Expanded(
                                           child: positionPlayerLineup3(
+                                              context: context,
                                               widthMedia: widthMedia,
                                               namePlayer: model[1].startXI[6].name,
                                               numberPlayer: model[1].startXI[6].number,
@@ -325,6 +341,7 @@ class DetailsOfMatches extends StatelessWidget {
                                         ),
                                         Expanded(
                                           child: positionPlayerLineup3(
+                                              context: context,
                                               widthMedia: widthMedia,
                                               namePlayer: model[1].startXI[7].name,
                                               numberPlayer: model[1].startXI[7].number,
@@ -332,6 +349,7 @@ class DetailsOfMatches extends StatelessWidget {
                                         ),
                                         Expanded(
                                           child: positionPlayerLineup3(
+                                              context: context,
                                               widthMedia: widthMedia,
                                               namePlayer: model[1].startXI[8].name,
                                               numberPlayer: model[1].startXI[8].number,
@@ -343,6 +361,7 @@ class DetailsOfMatches extends StatelessWidget {
                                       children: [
                                         Expanded(
                                           child: positionPlayerLineup2(
+                                              context: context,
                                               widthMedia: widthMedia,
                                               heightMedia:heightMedia*5,
                                               namePlayer: model[1].startXI[1].name,
@@ -350,6 +369,7 @@ class DetailsOfMatches extends StatelessWidget {
                                         ),
                                         Expanded(
                                           child: positionPlayerLineup2(
+                                              context: context,
                                               widthMedia: widthMedia,
                                               heightMedia: heightMedia*5,
                                               namePlayer: model[1].startXI[2].name,
@@ -357,6 +377,7 @@ class DetailsOfMatches extends StatelessWidget {
                                         ),
                                         Expanded(
                                           child: positionPlayerLineup2(
+                                              context: context,
                                               widthMedia: widthMedia,
                                               heightMedia:heightMedia*5,
                                               namePlayer: model[1].startXI[3].name,
@@ -364,6 +385,7 @@ class DetailsOfMatches extends StatelessWidget {
                                         ),
                                         Expanded(
                                           child: positionPlayerLineup2(
+                                              context: context,
                                               widthMedia: widthMedia,
                                               heightMedia: heightMedia*5,
                                               namePlayer: model[1].startXI[4].name,
@@ -428,15 +450,13 @@ class DetailsOfMatches extends StatelessWidget {
         ),
         Text(
           namePlayer,
-          style: TextStyle(
-              fontSize: widthMedia * 0.04, fontWeight: FontWeight.bold,color: Colors.white),
+          style:Theme.of(context).textTheme.bodyText2!.copyWith(fontSize: widthMedia * 0.04),
         ),
         CircleAvatar(
             radius: 15,
             child: Text(
               numberPlayer.toString(),
-              style: TextStyle(
-                  fontSize: widthMedia * 0.05, fontWeight: FontWeight.bold,color: Colors.white),
+              style: Theme.of(context).textTheme.bodyText2!.copyWith(fontSize: widthMedia * 0.04),
             )),
       ],
     );
@@ -451,8 +471,7 @@ class DetailsOfMatches extends StatelessWidget {
               radius: 15,
               child: Text(
                 numberPlayer.toString(),
-                style: TextStyle(
-                    fontSize: widthMedia * 0.05, fontWeight: FontWeight.bold,color: Colors.white),
+                style: Theme.of(context).textTheme.bodyText2!.copyWith(fontSize: widthMedia * 0.04),
               )),
           Text(
             namePlayer,
@@ -467,7 +486,8 @@ class DetailsOfMatches extends StatelessWidget {
       {required widthMedia,
         required heightMedia,
       required String namePlayer,
-      required int numberPlayer,awayTeam=false}) {
+      required int numberPlayer,required context,
+        awayTeam=false}) {
     if(!awayTeam) {
       return Column(
       children: [
@@ -476,17 +496,14 @@ class DetailsOfMatches extends StatelessWidget {
         ),
         Text(
           namePlayer,
-          style: TextStyle(
-            fontSize: widthMedia * 0.04,
-            fontWeight: FontWeight.bold,color: Colors.white
+          style:Theme.of(context).textTheme.bodyText2!.copyWith(fontSize: widthMedia * 0.04)
           ),
-        ),
+
         CircleAvatar(
             radius: 15,
             child: Text(
               numberPlayer.toString(),
-              style: TextStyle(
-                  fontSize: widthMedia * 0.05, fontWeight: FontWeight.bold,color: Colors.white),
+              style: Theme.of(context).textTheme.bodyText2!.copyWith(fontSize: widthMedia * 0.04),
             )),
       ],
     );
@@ -494,23 +511,18 @@ class DetailsOfMatches extends StatelessWidget {
       return Column(
         children: [
           SizedBox(
-            height: heightMedia*.08,
+            height: heightMedia*.1,
           ),
 
           CircleAvatar(
               radius: 15,
               child: Text(
                 numberPlayer.toString(),
-                style: TextStyle(
-                    fontSize: widthMedia * 0.05, fontWeight: FontWeight.bold,color: Colors.white),
+                style: Theme.of(context).textTheme.bodyText2!.copyWith(fontSize: widthMedia * 0.04),
               )),
           Text(
             namePlayer,
-            style: TextStyle(
-              fontSize: widthMedia * 0.04,
-
-              fontWeight: FontWeight.bold,color: Colors.white
-            ),
+            style:Theme.of(context).textTheme.bodyText2!.copyWith(fontSize: widthMedia * 0.04),
           ),
         ],
       );
@@ -522,6 +534,7 @@ class DetailsOfMatches extends StatelessWidget {
         required heightMedia,
         required String namePlayer,
         required int numberPlayer,
+        required context,
       awayTeam=false}) {
     if(!awayTeam) {
       return Column(
@@ -531,19 +544,13 @@ class DetailsOfMatches extends StatelessWidget {
         ),
         Text(
           namePlayer,
-          style: TextStyle(
-            fontSize: widthMedia * 0.04,
-            fontWeight: FontWeight.bold,
-              color: Colors.white,
-            debugLabel: namePlayer
-          ),maxLines: 1,overflow: TextOverflow.ellipsis,
+          style: Theme.of(context).textTheme.bodyText2!.copyWith(fontSize: widthMedia * 0.04),maxLines: 1,overflow: TextOverflow.ellipsis,
         ),
         CircleAvatar(
             radius: 15,
             child: Text(
               numberPlayer.toString(),
-              style: TextStyle(
-                  fontSize: widthMedia * 0.05, fontWeight: FontWeight.bold,color: Colors.white),
+              style: Theme.of(context).textTheme.bodyText2!.copyWith(fontSize: widthMedia * 0.04),
             )),
       ],
     );
@@ -558,16 +565,11 @@ class DetailsOfMatches extends StatelessWidget {
             radius: 15,
             child: Text(
               numberPlayer.toString(),
-              style: TextStyle(
-                  fontSize: widthMedia * 0.05, fontWeight: FontWeight.bold,color: Colors.white),
+              style: Theme.of(context).textTheme.bodyText2!.copyWith(fontSize: widthMedia * 0.04),
             )),
         Text(
           namePlayer,
-          style: TextStyle(
-              fontSize: widthMedia * 0.04,
-              fontWeight: FontWeight.bold,
-              debugLabel: namePlayer,color: Colors.white
-          ),maxLines: 1,overflow: TextOverflow.ellipsis,
+          style: Theme.of(context).textTheme.bodyText2!.copyWith(fontSize: widthMedia * 0.04),maxLines: 1,overflow: TextOverflow.ellipsis,
         ),
       ],
     );}
@@ -577,6 +579,7 @@ class DetailsOfMatches extends StatelessWidget {
         required heightMedia,
         required String namePlayer,
         required int numberPlayer,
+        required context,
       awayTeam=false}) {
 
     if(!awayTeam) {
@@ -587,18 +590,13 @@ class DetailsOfMatches extends StatelessWidget {
         ),
         Text(
           namePlayer,
-          style: TextStyle(
-              fontSize: widthMedia * 0.04,
-              fontWeight: FontWeight.bold,
-              debugLabel: namePlayer,color: Colors.white
-          ),maxLines: 1,overflow: TextOverflow.ellipsis,
+          style: Theme.of(context).textTheme.bodyText2!.copyWith(fontSize: widthMedia * 0.04),maxLines: 1,overflow: TextOverflow.ellipsis,
         ),
         CircleAvatar(
             radius: 15,
             child: Text(
               numberPlayer.toString(),
-              style: TextStyle(
-                  fontSize: widthMedia * 0.05, fontWeight: FontWeight.bold,color: Colors.white),
+              style: Theme.of(context).textTheme.bodyText2!.copyWith(fontSize: widthMedia * 0.04),
             )),
       ],
     );
@@ -607,23 +605,18 @@ class DetailsOfMatches extends StatelessWidget {
       return Column(
         children: [
           SizedBox(
-              height: heightMedia*.26
+              height: heightMedia*.1
           ),
 
           CircleAvatar(
               radius: 15,
               child: Text(
                 numberPlayer.toString(),
-                style: TextStyle(
-                    fontSize: widthMedia * 0.05, fontWeight: FontWeight.bold,color: Colors.white),
+                style: Theme.of(context).textTheme.bodyText2!.copyWith(fontSize: widthMedia * 0.04),
               )),
           Text(
             namePlayer,
-            style: TextStyle(
-                fontSize: widthMedia * 0.04,
-                fontWeight: FontWeight.bold,
-                debugLabel: namePlayer,color: Colors.white
-            ),maxLines: 1,overflow: TextOverflow.ellipsis,
+            style: Theme.of(context).textTheme.bodyText2!.copyWith(fontSize: widthMedia * 0.04),maxLines: 1,overflow: TextOverflow.ellipsis,
           ),
         ],
       );

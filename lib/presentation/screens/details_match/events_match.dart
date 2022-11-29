@@ -1,0 +1,184 @@
+import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+import 'package:hexcolor/hexcolor.dart';
+import 'package:liquid_progress_indicator/liquid_progress_indicator.dart';
+import 'package:sofa_sccore/data/models/details_match/events_model.dart';
+import 'package:sofa_sccore/presentation/bloc/cubit.dart';
+import 'package:sofa_sccore/presentation/bloc/states.dart';
+
+import '../../../data/data_source/remote_data_source.dart';
+import '../../../domain/entities/details_match/fixtures_lineup.dart';
+import '../../../domain/entities/fixtures.dart';
+
+class Events extends StatelessWidget {
+  final ResponseFixtures responseFixture;
+
+  const Events({Key? key,required this.responseFixture}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    double widthMedia=MediaQuery.of(context).size.width;
+    double heightMedia =MediaQuery.of(context).size.height;
+    List<FixturesAndLineup> modelFixturesAndLineup = RemoteDataSource.fixturesAndLineup;
+    return Scaffold(
+      body:BlocBuilder<MatchesCubit,MatchesState>(
+        builder: (context,state)=> Padding(
+          padding: const EdgeInsets.all(15.0),
+          child: Column(
+            children: [
+              Container(
+                color: HexColor('232e4b'),
+                child: Row(
+
+                  children: [
+                    Padding(
+                      padding:  EdgeInsets.only(left: widthMedia*.02),
+                      child: CircleAvatar(
+                          radius: widthMedia*.05,
+                          backgroundColor:
+                          Colors.white.withOpacity(0),
+                          child: Image(
+                            image: NetworkImage(responseFixture.teams.homeLogo),
+                            height: 50,
+                            width: widthMedia * .1,
+                          )),
+                    ),
+                    const Spacer(),
+                    Padding(
+                      padding:  EdgeInsets.only(right: widthMedia*.02),
+                      child: CircleAvatar(
+                          radius: widthMedia*.05,
+                          backgroundColor:
+                          Colors.white.withOpacity(0),
+                          child: Image(
+                            image: NetworkImage(responseFixture.teams.awayLogo),
+                            height: 50,
+                            width: widthMedia * .1,
+                          )),
+                    )
+                  ],
+                ),
+              ),
+              SizedBox(height:heightMedia*.02 ,),
+              ConditionalBuilder(
+                condition: state is MatchesGetEventsSuccessState,
+                builder: (state) {
+
+                  List<EventsModel>  eventsModel =RemoteDataSource.eventsModel??[];
+
+
+                  return RemoteDataSource.eventsModel!=null?Column(
+                  children: [
+                    SizedBox(
+                      height: heightMedia*.67,
+                      child: ListView.builder(
+
+                        itemBuilder: (context,index) => eventsModel[index].team.id==modelFixturesAndLineup[0].id?Row(
+                          children: [
+                            Column(
+                              children: [
+                                SizedBox(
+                                    height: heightMedia*.03,
+                                            child: eventsModel[index].type == 'Card'
+                                                ? Image.asset('assets/yellow card.jpg')
+                                                : eventsModel[index].type == 'subst'
+                                                ? Image.asset('assets/repeat_318-596159.jpg')
+                                                : eventsModel[index].type == 'Goal'
+                                                ? SvgPicture.asset(color: Colors.white, 'assets/ball.svg', height: heightMedia * .03,)
+                                                : Image.asset('assets/var.jpg')),
+                                        SizedBox(height:heightMedia*.014 ,),
+                                Center(
+                                  child:Text('${ eventsModel[index].time.elapsed}',style: Theme.of(context).textTheme.bodyText2!.copyWith(fontSize: 15),),
+                                )
+                              ],
+                            ),
+                            SizedBox(width:widthMedia*.009 ,),
+                            Container(
+                              color: Colors.grey,
+                              height:heightMedia*.08,
+                              width: widthMedia*.003,
+                            ),
+                            SizedBox(width:widthMedia*.009 ,),
+                            Column(
+                              children: [
+                                Center(
+                                  child:Text('${ eventsModel[index].player.namePlayer}',style: Theme.of(context).textTheme.bodyText2!.copyWith(fontSize: widthMedia*.05,color: Colors.white),),
+                                ),
+                                SizedBox(height:heightMedia*.008 ,),
+                                Text('${ eventsModel[index].type}',style: Theme.of(context).textTheme.bodyText2!.copyWith(fontSize: 15),),
+                              ],
+                            ),
+
+
+                          ],
+                        ):
+                        Row(
+                            mainAxisAlignment: MainAxisAlignment.end,
+                            children: [
+                              Column(
+                                children: [
+                                  Center(
+                                    child:Text('${ eventsModel[index].player.namePlayer}',style: Theme.of(context).textTheme.bodyText2!.copyWith(fontSize: widthMedia*.05,color: Colors.white),),
+                                  ),
+                                  SizedBox(height:heightMedia*.008 ,),
+                                  Text('${ eventsModel[index].type}',style: Theme.of(context).textTheme.bodyText2!.copyWith(fontSize: 15),),
+                                ],
+                              ),
+                              SizedBox(width:widthMedia*.009 ,),
+                              Container(
+                                color: Colors.grey,
+                                height:heightMedia*.08,
+                                width: widthMedia*.003,
+                              ),
+                              SizedBox(width:widthMedia*.009 ,),
+                              Column(
+                                children: [
+                                  SizedBox(
+                                      height: heightMedia*.03,
+                                      child:eventsModel[index].type=='Card'? Image.asset('assets/yellow card.jpg'):eventsModel[index].type=='subst'? Image.asset('assets/repeat_318-596159.jpg'):eventsModel[index].type=='Goal'?SvgPicture.asset(color: Colors.white,'assets/ball.svg',height: heightMedia*.03,):Image.asset(width: widthMedia*.08,'assets/var.jpg')),
+                                  SizedBox(height:heightMedia*.014 ,),
+                                  Center(
+                                    child:Text('${ eventsModel[index].time.elapsed}',style: Theme.of(context).textTheme.bodyText2!.copyWith(fontSize: 15),),
+                                  )
+                                ],
+                              ),
+
+
+                            ],
+                          ),
+                        itemCount:eventsModel.length ,
+                        physics: const BouncingScrollPhysics(),
+                      ),
+                    ),
+
+                  ],
+                )
+                      : SizedBox(
+                        height: heightMedia*.67,
+                        child: const Center(child: Text('No Events Yet')),
+                      );
+                },
+                fallback: (context)=>SizedBox(
+                  height: 30,
+                  child: LiquidLinearProgressIndicator(
+                    value: 0.6, // Defaults to 0.5.
+                    valueColor: const AlwaysStoppedAnimation(Colors.pink), // Defaults to the current Theme's accentColor.
+                    backgroundColor: Colors.white, // Defaults to the current Theme's backgroundColor.
+                    borderColor: Colors.red[100],
+                    borderWidth: 5.0,
+                    borderRadius: 12.0,
+                    direction: Axis.vertical, // The direction the liquid moves (Axis.vertical = bottom to top, Axis.horizontal = left to right). Defaults to Axis.horizontal.
+                    center: const Text("Loading..."),
+                  ),
+                ),
+              )
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}

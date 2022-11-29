@@ -5,7 +5,7 @@ class Constants
   static String api ='https://v3.football.api-sports.io';
   static String apiKey ='20caee99a0c4f9fd91713690b0b75446';
   static List<String> endPoints=['teams','fixtures','fixtures/lineups',
-    "players/squads",'standings','leagues','players','transfers',"odds/live"];
+    "players/squads",'standings','leagues','players','transfers',"odds/live","fixtures/statistics",'fixtures/events'];
 
   //'x-rapidapi-key': '20caee99a0c4f9fd91713690b0b75446',
   static var headers = {
@@ -36,8 +36,8 @@ class Constants
   static int belgium=1;
 
   // Leagues must input season
-  //static List<int> leagueId=[1,2,39,78,61,140,135,233,5,3];
-  static List<int> leagueId=[39];         //لغاية لما اخلص الابليكشن
+  static List<int> leagueId=[1,2,39,140,135,233,3];
+  //static List<int> leagueId=[39];         //لغاية لما اخلص الابليكشن
   static int worldCup=1;
     static int uEFAChampionsLeague=2;
     static int premierLeague=39;
@@ -47,6 +47,11 @@ class Constants
     static int serieA=135;
     static int premierLeagueEgypt=233;
     static int uefaNationsLeague=5;
+
+    /// Date Time
+    static String fromDate=DateTime.now().add(const Duration(days: -1)).toString().substring(0, 10);
+    static String toDate=DateTime.now().add(const Duration(days: 7)).toString().substring(0, 10);
+    static String timezone="Africa/Cairo";
 
    /// List Favorite Team
     static List<int> favorites=[];
@@ -58,5 +63,9 @@ class Constants
     static String? todaySharedPreference;
 
     static bool runAllGames= true;
+
+  /// Type of events
+  List<String> type=['Goal','Card','Subst','Var'];
+
 
 }

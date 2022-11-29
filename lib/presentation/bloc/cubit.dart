@@ -13,6 +13,8 @@ import 'package:sofa_sccore/domain/entities/live_entity.dart';
 import 'package:sofa_sccore/domain/entities/team/squad.dart';
 import 'package:sofa_sccore/domain/use_case/Team/champions_use_case.dart';
 import 'package:sofa_sccore/domain/use_case/Team/info_venue_team_use_case.dart';
+import 'package:sofa_sccore/domain/use_case/details_match_use_case/events_use_casr.dart';
+import 'package:sofa_sccore/domain/use_case/details_match_use_case/statistics_use_casr.dart';
 import 'package:sofa_sccore/domain/use_case/league/standing_league_use_case.dart';
 import 'package:sofa_sccore/domain/use_case/live_use_case.dart';
 import 'package:sofa_sccore/domain/use_case/player/statistics_player_use_case.dart';
@@ -23,7 +25,7 @@ import 'package:sofa_sccore/domain/use_case/Team/squad_use_case.dart';
 import 'package:sofa_sccore/domain/use_case/Team/standing_league_use_case.dart';
 import 'package:sofa_sccore/presentation/bloc/states.dart';
 import '../../domain/entities/league/standing_league.dart';
-import '../../domain/use_case/fixtures_lineup_use_case.dart';
+import '../../domain/use_case/details_match_use_case/fixtures_lineup_use_case.dart';
 import '../../domain/use_case/get_all_games_use_case.dart';
 import '../../domain/use_case/Team/matches_for_team_use_case.dart';
 
@@ -40,6 +42,8 @@ class MatchesCubit extends Cubit<MatchesState> {
   final StatisticsPlayerUseCase statisticsPlayerUseCase;
   final TransferUseCase transferUseCase;
   final LiveUseCase liveUseCase;
+  final StatisticsUseCase statisticsUseCase;
+  final GetEventsUseCase eventsUseCase;
 
   MatchesCubit(
       this.getAllGamesUseCase,
@@ -53,7 +57,9 @@ class MatchesCubit extends Cubit<MatchesState> {
       this.statisticsPlayerUseCase,
       this.transferUseCase,
       this.liveUseCase,
-      this.searchLeagueUseCase
+      this.searchLeagueUseCase,
+      this.statisticsUseCase,
+      this.eventsUseCase,
      )
       : super(MatchesInitialState());
 
@@ -65,7 +71,7 @@ class MatchesCubit extends Cubit<MatchesState> {
     emit(MatchesCountPlusState());
   }
   List<ResponseFixtures> sortModel=[];
-  Future<void> allGames(season, fromDate, toDate) async {
+  Future<void> allGames(int season, fromDate, toDate) async {
     emit(MatchesGetAllGamesLoadingState());
     await GetAllGamesUseCase(seGet())
         .execute(season, fromDate, toDate)
@@ -85,10 +91,10 @@ class MatchesCubit extends Cubit<MatchesState> {
     emit(MatchesFixturesAndLineupLoadingState());
     await GetFixturesAndLineup(seGet()).execute(id).then((value) {
       emit(MatchesFixturesAndLineupSuccessState());
-    }).catchError((error) {
+    })/*.catchError((error) {
       print(error.toString());
       emit(MatchesFixturesAndLineupErrorState());
-    });
+    })*/;
   }
 
   Squads? modelSquads;
@@ -240,6 +246,47 @@ class MatchesCubit extends Cubit<MatchesState> {
     });
   }
 
+
+  Future<void> getStatistics(int id) async {
+    emit(MatchesGetStatisticsLoadingState());
+    await StatisticsUseCase(seGet())
+        .execute(id)
+        .then((value) {
+      // print( SharedPreference.getData('fixtures'));
+
+      emit(MatchesGetStatisticsSuccessState());
+    }).catchError((error) {
+
+      print(error.toString());
+      emit(MatchesGetStatisticsErrorState());
+    })
+    ;
+  }
+
+
+  Future<void> getEvents(int idFixture) async {
+    emit(MatchesGetEventsLoadingState());
+    await GetEventsUseCase(seGet())
+        .execute(idFixture)
+        .then((value) {
+      // print( SharedPreference.getData('fixtures'));
+
+      emit(MatchesGetEventsSuccessState());
+    })/*.catchError((error) {
+
+      print(error.toString());
+      emit(MatchesGetEventsErrorState());
+    })*/
+    ;
+  }
+
+
+
+
+
+
+
+
   Map<int,LiveEntity> modelLive={};
   List<bool> liveDate = [];
   Map<int,Duration> matchDuration = {};
@@ -300,12 +347,14 @@ print('time to start live');
     for (int i = 0; i < model.length; i++) {
 
       bool toDay=DateFormat('yyyy-MM-dd').format(DateTime.now())==(DateFormat('yyyy-MM-dd').format(DateTime.parse(model[i].fixtures.date.substring(0,10))));
-      int hour = (int.parse(model[i].fixtures.date.substring(11, 13)) + 2)-DateTime.now().hour;
+      int hour = (int.parse(model[i].fixtures.date.substring(11, 13)))-DateTime.now().hour;
       int minutes = (int.parse(model[i].fixtures.date.substring(14, 16)))-DateTime.now().minute;
 
-print(hour+2);
 //print(minutes);
-      if(/*sortModel[i].fixtures.elapsed>0&&model[i].fixtures.elapsed<90*/toDay &&hour+2>0 ) {
+      if(toDay &&hour+2>0&&false ) {
+        print('${model[i].teams.homeName}:${hour+2}');
+        print('${model[i].teams.homeName}:${minutes}');
+
         Timer(Duration(hours: hour,minutes: minutes), () {
           emit(MatchesLiveState());
 

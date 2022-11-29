@@ -2,8 +2,10 @@
 import 'package:sofa_sccore/data/data_source/remote_data_source.dart';
 import 'package:sofa_sccore/data/models/search_teams_model.dart';
 import 'package:sofa_sccore/data/models/transfer_model.dart';
+import 'package:sofa_sccore/domain/entities/details_match/events_match.dart';
+import 'package:sofa_sccore/domain/entities/details_match/statistics_match.dart';
 import 'package:sofa_sccore/domain/entities/fixtures.dart';
-import 'package:sofa_sccore/domain/entities/fixtures_lineup.dart';
+import 'package:sofa_sccore/domain/entities/details_match/fixtures_lineup.dart';
 import 'package:sofa_sccore/domain/entities/league/standing_league.dart';
 import 'package:sofa_sccore/domain/entities/live_entity.dart';
 import 'package:sofa_sccore/domain/entities/player/player_details_entity.dart';
@@ -12,6 +14,7 @@ import 'package:sofa_sccore/domain/entities/team/squad.dart';
 import 'package:sofa_sccore/domain/repository/football_team.dart';
 
 import '../models/standing_model.dart';
+import '../models/details_match/statistics_model.dart';
 
 class FootballRepository implements BaseFootballTeams
 {
@@ -25,7 +28,7 @@ class FootballRepository implements BaseFootballTeams
   }
 
   @override
-  Future<List<ResponseFixtures>> getAllGames(String season,String fromDate,String toDate) async{
+  Future<List<ResponseFixtures>> getAllGames(int season,String fromDate,String toDate) async{
     return await baseRemoteDataSource.getAllGames( season, fromDate, toDate);
 
   }
@@ -84,6 +87,18 @@ class FootballRepository implements BaseFootballTeams
   @override
   Future<List<StandingLeague>> searchLeague(String search) async{
     return await baseRemoteDataSource.searchLeague(search);
+
+  }
+
+  @override
+  Future<List<StatisticsMatch>> getStatistics(int idFixtures) async{
+    return await baseRemoteDataSource.getStatistics(idFixtures);
+
+  }
+
+  @override
+  Future<List<EventsEntity>> getEvents(int idFixtures) async{
+    return await baseRemoteDataSource.getEvents(idFixtures);
 
   }
 
