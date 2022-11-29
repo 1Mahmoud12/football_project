@@ -1,7 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.sofa_sccore">
    <application
-        android:label="sofa_sccore"
+        android:label="footballWorld"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity
