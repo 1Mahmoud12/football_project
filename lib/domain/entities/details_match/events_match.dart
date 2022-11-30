@@ -41,7 +41,7 @@ class Teams{
 
 class Player{
   dynamic id;
-  dynamic namePlayer;
+  String? namePlayer;
 
   Player(Map<String,dynamic> json){
     id=json['id']??0;

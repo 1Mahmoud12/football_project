@@ -93,7 +93,7 @@ class Events extends StatelessWidget {
                                         SizedBox(height:heightMedia*.014 ,),
                                 Row(
                                   children: [
-                                    Text('${ eventsModel[index].time.elapsed}',style: Theme.of(context).textTheme.bodyText2!.copyWith(fontSize: 15),),
+                                    Text('${ eventsModel[index].time.elapsed>0?eventsModel[index].time.elapsed:0}',style: Theme.of(context).textTheme.bodyText2!.copyWith(fontSize: 15),),
                                     if(eventsModel[index].time.extra!=0)
                                       Text(' +${  eventsModel[index].time.extra}',style: Theme.of(context).textTheme.bodyText2!.copyWith(fontSize: 15),),
                                   ],
@@ -125,9 +125,7 @@ class Events extends StatelessWidget {
                             children: [
                               Column(
                                 children: [
-                                  Center(
-                                    child:Text('${ eventsModel[index].player.namePlayer}',style: Theme.of(context).textTheme.bodyText2!.copyWith(fontSize: widthMedia*.05),),
-                                  ),
+                                  Text('${eventsModel[index].player.namePlayer}',style: Theme.of(context).textTheme.bodyText2!.copyWith(fontSize: widthMedia*.05),),
                                   SizedBox(height:heightMedia*.008 ,),
                                   Text('${ eventsModel[index].type=='Goal'?'Ass : ${eventsModel[index].assist.name}':eventsModel[index].type}',style: Theme.of(context).textTheme.bodyText2!.copyWith(fontSize: 15),),
                                 ],
@@ -145,7 +143,7 @@ class Events extends StatelessWidget {
                                       height: heightMedia*.03,
                                       child:eventsModel[index].type=='Card'? Image.asset('assets/yellow card.jpg',width: widthMedia*.06,)
                                           :eventsModel[index].type=='subst'? Image.asset('assets/repeat_318-596159.jpg',width: widthMedia*.05,)
-                                          :eventsModel[index].type=='Goal'?SvgPicture.asset(color: Colors.white,'assets/ball.svg',height: heightMedia*.03,)
+                                          :eventsModel[index].type=='Goal'?SvgPicture.asset(color: MatchesCubit.get(context).checkMode?Colors.white:Colors.black,'assets/ball.svg',height: heightMedia*.03,)
                                           :Image.asset('assets/var.jpg',width: widthMedia*.08,)),
                                   SizedBox(height:heightMedia*.014 ,),
                                   Row(

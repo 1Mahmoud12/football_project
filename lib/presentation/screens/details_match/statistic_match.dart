@@ -41,11 +41,10 @@ class Statistics extends StatelessWidget {
                         padding:  EdgeInsets.only(left: widthMedia*.02),
                         child: CircleAvatar(
                             radius: widthMedia*.05,
-                            backgroundColor:
-                            Colors.white.withOpacity(0),
+                            backgroundColor: Colors.white.withOpacity(0),
                             child: Image(
+
                               image: NetworkImage(responseFixtures.teams.homeLogo),
-                              height: 50,
                               width: widthMedia * .1,
                             )),
                       ),
@@ -54,11 +53,10 @@ class Statistics extends StatelessWidget {
                         padding:  EdgeInsets.only(right: widthMedia*.02),
                         child: CircleAvatar(
                             radius: widthMedia*.05,
-                            backgroundColor:
-                            Colors.white.withOpacity(0),
+                            backgroundColor: Colors.white.withOpacity(0),
                             child: Image(
+                              fit: BoxFit.cover,
                               image: NetworkImage(responseFixtures.teams.awayLogo),
-                              height: 50,
                               width: widthMedia * .1,
                             )),
                       )

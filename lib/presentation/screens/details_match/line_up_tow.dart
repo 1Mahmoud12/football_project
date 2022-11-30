@@ -208,7 +208,7 @@ class DetailsOfMatchesTwo extends StatelessWidget {
                                     )),
                               ),
                                 const Spacer(),
-                                Text(model[0].formation)
+                                Text(model[0].formation,style: const TextStyle(color: Colors.white70),)
                               ],
                             ),
                           ),
@@ -437,7 +437,7 @@ class DetailsOfMatchesTwo extends StatelessWidget {
                                       )),
                                 ),
                                 const Spacer(),
-                                Text(model[1].formation)
+                                Text(model[1].formation,style: const TextStyle(color: Colors.white70),)
                               ],
                             ),
                           ),

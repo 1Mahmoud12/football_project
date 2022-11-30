@@ -65,8 +65,8 @@ class _StandingTeamState extends State<StandingTeam> {
                   Expanded(
                     child: ListView.builder(
                       itemBuilder: (context,index) {
-
-                        return model!.nameLeague=='UEFA Champions League'||model.nameLeague=='World Cup' ? tableChampions(model, index,context):tableLeague(model, index,context);
+                        print(model!.nameLeague);
+                        return model.nameLeague=='UEFA Champions League'||model.nameLeague=='World Cup'||model.nameLeague=='CAF' ? tableChampions(model, index,context):tableLeague(model, index,context);
                       },
                       itemCount:model!.standingsTeam.length ,),
                   ),],)

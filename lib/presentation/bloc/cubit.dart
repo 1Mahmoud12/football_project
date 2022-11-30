@@ -79,11 +79,11 @@ class MatchesCubit extends Cubit<MatchesState> {
         // print( SharedPreference.getData('fixtures'));
       sortModel=sortMatches(RemoteDataSource.modelOfFixtures!);
       emit(MatchesGetAllGamesSuccessState());
-    })/*.catchError((error) {
+    }).catchError((error) {
 
       print(error.toString());
       emit(MatchesGetAllGamesErrorState());
-    })*/
+    })
     ;
   }
 
