@@ -46,7 +46,9 @@ class DetailsTeam extends StatelessWidget {
                       ],
                     ),
                   ),
-                  featureMatch(context),
+                  SizedBox(
+                    height: heightMedia*.17,
+                      child: featureMatch(context)),
                   separator(widthMedia),
                   Text(
                     AppString.tournaments,
@@ -55,7 +57,7 @@ class DetailsTeam extends StatelessWidget {
                   SizedBox(height: heightMedia*.01,),
                   SizedBox(
 
-                    height:model.length>3? 180:90,
+                    height:model.length>3? heightMedia*.25:heightMedia*.15,
                     child: GridView.count(
                       crossAxisCount: 3,
                       childAspectRatio: 1.3,
@@ -213,8 +215,8 @@ class DetailsTeam extends StatelessWidget {
           break;
         }
     }
-    if(match!=null) {
-      return Padding(
+
+      return match!=null?Padding(
       padding: const EdgeInsets.only(left: 8.0,top: 8.0,right: 8.0),
       child: Card(
         elevation: 0,
@@ -235,7 +237,7 @@ class DetailsTeam extends StatelessWidget {
                     CircleAvatar(
                         radius: 13,
                         backgroundColor: Colors.white.withOpacity(0),
-                        child: Image(image:NetworkImage(match!.league.logo??'https://img.freepik.com/premium-psd/soccer-ball-isolated-3d-rendering_286925-255.jpg?size=338&ext=jpg&uid=R75154930'),height:50,width: widthMedia*.08,)),
+                        child: Image(image:NetworkImage(match.league.logo??'https://img.freepik.com/premium-psd/soccer-ball-isolated-3d-rendering_286925-255.jpg?size=338&ext=jpg&uid=R75154930'),height:50,width: widthMedia*.08,)),
                     const SizedBox(width: 5,),
                     Text(match.league.name,style: Theme.of(context).textTheme.bodyText1,)
                   ],
@@ -301,16 +303,13 @@ class DetailsTeam extends StatelessWidget {
 
         ),
       ),
-    );
-    } else {
-      return Row(
+    ):Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Text('The Match Not Selected')
+          Text('The ${AppString.featuredMatch} Not Selected',style: Theme.of(context).textTheme.bodyText1,)
         ],
-      )
-      ;
+      );
     }
   }
-}
+
 

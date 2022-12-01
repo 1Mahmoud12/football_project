@@ -16,7 +16,7 @@ class MatchesTeam extends StatelessWidget {
     double heightMedia=MediaQuery.of(context).size.height;
 
     var model =RemoteDataSource.modelMatchesForTeam;
-   // MatchesCubit.get(context).timeToStartLive(RemoteDataSource.modelMatchesForTeam, context);
+    MatchesCubit.get(context).timeToStartLive(RemoteDataSource.modelMatchesForTeam, context);
     return BlocBuilder<MatchesCubit,MatchesState>(
         builder: (context,state) {
           return Scaffold(

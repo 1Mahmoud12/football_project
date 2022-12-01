@@ -350,7 +350,7 @@ class MatchesCubit extends Cubit<MatchesState> {
       int hour = (int.parse(model[i].fixtures.date.substring(11, 13)))-DateTime.now().hour;
       int minutes = (int.parse(model[i].fixtures.date.substring(14, 16)))-DateTime.now().minute;
 
-      if(toDay &&hour+2>0 ) {
+      if(toDay &&hour+2>0&&false ) {
 
 
         Timer(Duration(hours: hour,minutes: minutes), () {
