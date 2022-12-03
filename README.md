@@ -12,13 +12,13 @@
 
 - dark mode & favorites team & search team & live match
 
-![](https://github.com/1Mahmoud12/football_project/blob/master/other%20functions.png)
+![](https://github.com/1Mahmoud12/course_Mrabdullah_udemy/blob/main/lib/other%20functions.png)
 - details match
 
-![](https://github.com/1Mahmoud12/football_project/blob/master/line%20up.png)
+![](https://github.com/1Mahmoud12/course_Mrabdullah_udemy/blob/main/lib/line%20up.png)
 - details team
 
-![](https://github.com/1Mahmoud12/football_project/blob/master/details%20team.png)
+![](https://github.com/1Mahmoud12/course_Mrabdullah_udemy/blob/main/lib/details%20team.png)
 
 # in this project
 - bloc as State managment
