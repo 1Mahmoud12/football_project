@@ -14,6 +14,7 @@ ResponseFixtures(Map<String,dynamic>json){
 class Fixtures {
 dynamic referee;
 dynamic shortTime;
+String? longTime;
 dynamic elapsed;
 dynamic date;
 dynamic idFixtures;
@@ -21,6 +22,7 @@ dynamic idFixtures;
   Fixtures.fromJson(Map<String,dynamic>json){
    referee=json['referee'];
    shortTime=json['status']['short'];
+   longTime=json['status']['long'].substring(5);
    elapsed=json['status']['elapsed']??-1;
    date=json['date'];
    idFixtures=json['id'];
@@ -61,7 +63,7 @@ class Goals {
   dynamic homeGoals;
   dynamic awayGoals;
   Goals.fromJson(Map<String,dynamic>json){
-    homeGoals=json['home'];
-    awayGoals=json['away'];
+    homeGoals=json['home']??0;
+    awayGoals=json['away']??0;
   }
 }

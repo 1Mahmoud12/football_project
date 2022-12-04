@@ -4,6 +4,7 @@ import 'package:conditional_builder_null_safety/conditional_builder_null_safety.
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:liquid_progress_indicator/liquid_progress_indicator.dart';
+import 'package:sofa_sccore/core/utils/strings.dart';
 import 'package:sofa_sccore/data/data_source/remote_data_source.dart';
 import 'package:sofa_sccore/data/models/champions_model.dart';
 import 'package:sofa_sccore/domain/entities/league/standing_league.dart';
@@ -263,18 +264,24 @@ Widget matches(List <ResponseFixtures>model,index,context,{ bool live=false}){
                       ):
                       Column(
                         children: [
-                          if(model[index].goals.homeGoals!=null)
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-
+                          if(model[index].fixtures.shortTime=='FT')
+                            Column(
                               children: [
-                                Text('${model[index].goals.homeGoals} :',style:Theme.of(context).textTheme.bodyText1),
-                                Text(model[index].goals.awayGoals.toString(),style: Theme.of(context).textTheme.bodyText1),
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
 
+                                  children: [
+                                    Text('${model[index].goals.homeGoals } :',style:Theme.of(context).textTheme.bodyText1),
+                                    Text('${model[index].goals.awayGoals}',style: Theme.of(context).textTheme.bodyText1),
+
+                                  ],
+                                ),
+                                SizedBox(height: heightMedia*.005,),
+                                Text(model[index].fixtures.shortTime!,style: Theme.of(context).textTheme.bodyText1,)
                               ],
                             ),
 
-                          if(model[index].goals.homeGoals==null)
+                          if(model[index].fixtures.shortTime=='NS')
                             Column(
                               children: [
                                 Text(subStringForDate(date: model[index].fixtures.date.toString()),style: Theme.of(context).textTheme.bodyText1,),
@@ -282,8 +289,8 @@ Widget matches(List <ResponseFixtures>model,index,context,{ bool live=false}){
                                 Text(subStringForTime(time: model[index].fixtures.date.toString()),style: Theme.of(context).textTheme.bodyText1,),
                               ],
                             ),
-                          if(model[index].goals.homeGoals!=null)
-                            Text(model[index].fixtures.shortTime,style: Theme.of(context).textTheme.bodyText1,)
+                          if(model[index].fixtures.shortTime!='FT'&&model[index].fixtures.shortTime!='NS')
+                            Text(AppString.durationMatch[model[index].fixtures.shortTime!]!,style: Theme.of(context).textTheme.bodyText1,)
 
                         ],
                       ),

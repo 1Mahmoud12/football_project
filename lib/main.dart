@@ -30,7 +30,7 @@ void main() async{
  Constants.runAllGames =true;
 
   if(Constants.todaySharedPreference==null){}
-  else if(Constants.todaySharedPreference==DateFormat('yyyy-MM-dd').format(DateTime.now())){
+  else if(int.parse(Constants.todaySharedPreference!)==int.parse(DateTime.now().toString().substring(11,13))){
 
     RemoteDataSource.modelOfFixtures=[];
     var  json=await SharedPreference.getData('fixtures');

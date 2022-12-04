@@ -90,7 +90,8 @@ class RemoteDataSource implements BaseRemoteDataSource {
               '${Constants.api}/${Constants.endPoints[1]}?league=${Constants.leagueId[i].toString()}&from=$fromDate&to=$toDate&season=$season&timezone=${Constants.timezone}'),
           headers: Constants.headers);
       if (jsonDecode(request.body)['results'] > 0) {
-        today=DateFormat('yyyy-MM-dd').format(DateTime.now()) ;
+
+        today=DateTime.now().toString().substring(11,13) ;
         SharedPreference.putDataString('today', today!);
 
         jsonDecode(request.body)['response'].forEach((element) {

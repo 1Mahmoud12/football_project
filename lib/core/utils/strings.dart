@@ -19,6 +19,30 @@ class AppString {
   static const minutesPerGame = 'minutes per game';
   static const rate = 'Rate';
 
+  ///  Duration Matches
+  static Map<String,String> durationMatch={
+    'NS':'NS',
+    'CANC':'Cancelled',
+    'PST':'Postponed',
+    'HT':'Halftime',
+    'FT':'Finished',
+    '1H':'1nd half',
+    '2H':'2nd Half',
+    'TBD':'No Time ',
+    'ET':'EX time',
+    'BT':'Break Time',
+    'P':'Penalty In Progress',
+    'SUSP':'Match Suspended',
+    'AET':'AET',
+    'INT':'Match Interrupted',
+    'ABD':'Match Abandoned',
+    'AWD':'Technical Loss',
+    'WO':'WalkOver',
+    'LIVE':'In Progress	',
+
+
+  };
+
   /// substitutes
   static const substitutes = 'substitutes';
   static const substitutesIn = 'In';
