@@ -5,6 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:liquid_progress_indicator/liquid_progress_indicator.dart';
+import 'package:sofa_sccore/core/utils/constants.dart';
 import 'package:sofa_sccore/data/models/details_match/events_model.dart';
 import 'package:sofa_sccore/presentation/bloc/cubit.dart';
 import 'package:sofa_sccore/presentation/bloc/states.dart';
@@ -83,13 +84,9 @@ class Events extends StatelessWidget {
                               children: [
                                 SizedBox(
                                     height: heightMedia*.03,
-                                            child: eventsModel[index].type == 'Card'
-                                                ? Image.asset('assets/yellow card.jpg',width: widthMedia*.06,)
-                                                : eventsModel[index].type == 'subst'
-                                                ? Image.asset('assets/repeat_318-596159.jpg',width: widthMedia*.05,)
-                                                : eventsModel[index].type == 'Goal'
-                                                ? SvgPicture.asset(color: Colors.white, 'assets/ball.svg', height: heightMedia * .025,)
-                                                : Image.asset('assets/var.jpg',width: widthMedia*.08,)),
+                                    child:eventsModel[index].type=='Goal'? SvgPicture.asset(color: MatchesCubit.get(context).checkMode?Colors.white:Colors.black,'assets/ball.svg',height: heightMedia*.03,)
+                                        :Image.asset('${Constants.typeEvents[eventsModel[index].type]}')
+                                ),
                                         SizedBox(height:heightMedia*.014 ,),
                                 Row(
                                   children: [
@@ -101,11 +98,7 @@ class Events extends StatelessWidget {
                               ],
                             ),
                             SizedBox(width:widthMedia*.009 ,),
-                            Container(
-                              color: Colors.grey,
-                              height:heightMedia*.08,
-                              width: widthMedia*.003,
-                            ),
+                             padMe(heightMedia,widthMedia),
                             SizedBox(width:widthMedia*.009 ,),
                             Column(
                               children: [
@@ -131,20 +124,15 @@ class Events extends StatelessWidget {
                                 ],
                               ),
                               SizedBox(width:widthMedia*.009 ,),
-                              Container(
-                                color: Colors.grey,
-                                height:heightMedia*.08,
-                                width: widthMedia*.003,
-                              ),
+                              padMe(heightMedia,widthMedia),
                               SizedBox(width:widthMedia*.009 ,),
                               Column(
                                 children: [
                                   SizedBox(
                                       height: heightMedia*.03,
-                                      child:eventsModel[index].type=='Card'? Image.asset('assets/yellow card.jpg',width: widthMedia*.06,)
-                                          :eventsModel[index].type=='subst'? Image.asset('assets/repeat_318-596159.jpg',width: widthMedia*.05,)
-                                          :eventsModel[index].type=='Goal'?SvgPicture.asset(color: MatchesCubit.get(context).checkMode?Colors.white:Colors.black,'assets/ball.svg',height: heightMedia*.03,)
-                                          :Image.asset('assets/var.jpg',width: widthMedia*.08,)),
+                                      child:eventsModel[index].type=='Goal'? SvgPicture.asset(color: MatchesCubit.get(context).checkMode?Colors.white:Colors.black,'assets/ball.svg',height: heightMedia*.03,)
+                                          :Image.asset('${Constants.typeEvents[eventsModel[index].type]}')
+                                  ),
                                   SizedBox(height:heightMedia*.014 ,),
                                   Row(
                                     children: [
@@ -178,6 +166,13 @@ class Events extends StatelessWidget {
           ),
         ),
       ),
+    );
+  }
+  Widget padMe(double heightMedia,double widthMedia){
+    return Container(
+      color: Colors.grey[800],
+      height:heightMedia*.08,
+      width: widthMedia*.003,
     );
   }
 }

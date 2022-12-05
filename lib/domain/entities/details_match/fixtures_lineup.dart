@@ -1,4 +1,6 @@
 
+import 'package:sofa_sccore/core/utils/constants.dart';
+
 class FixturesAndLineup{
 dynamic id;
 dynamic name;
@@ -20,7 +22,7 @@ dynamic coachPhoto;
   {
     id=json['team']['id'];
     name=json['team']['name'];
-    logo=json['team']['logo'];
+    logo=json['team']['logo']??Constants.noImage;
     playerColorPrimary=json['team']['colors']['player']['primary'];
     playerColorBorder=json['team']['colors']['player']['border'];
     playerColorNumber=json['team']['colors']['player']['number'];
@@ -36,8 +38,8 @@ dynamic coachPhoto;
       substitutes.add(Substitutes(element));
     });
     coachId=json['coach']['id'];
-    coachName=json['coach']['name'];
-    coachPhoto=json['coach']['photo'];
+    coachName=json['coach']['name']??'Not known';
+    coachPhoto=json['coach']['photo']??Constants.noImage;
   }
 
 }

@@ -3,14 +3,15 @@ import 'package:sofa_sccore/domain/entities/fixtures.dart';
 class Constants
 {
   static String api ='https://v3.football.api-sports.io';
-  static String apiKey ='20caee99a0c4f9fd91713690b0b75446';
+  static  String apiKey='20caee99a0c4f9fd91713690b0b75446' ;
+  static Uri url =Uri.parse('https://dashboard.api-football.com/login/expirate');
   static List<String> endPoints=['teams','fixtures','fixtures/lineups',
     "players/squads",'standings','leagues','players','transfers',"odds/live","fixtures/statistics",'fixtures/events'];
 
   //'x-rapidapi-key': '20caee99a0c4f9fd91713690b0b75446',
   static var headers = {
 
-    'x-rapidapi-key': '20caee99a0c4f9fd91713690b0b75446',
+    'x-rapidapi-key': apiKey,
     'x-rapidapi-host': 'v3.football.api-sports.io',
 
   };
@@ -65,7 +66,11 @@ class Constants
     static bool runAllGames= true;
 
   /// Type of events
-  List<String> type=['Goal','Card','Subst','Var'];
-
-
+  static Map<String,String> typeEvents={'Goal':'assets/ball.svg',
+    'Yellow Card':'assets/Yellow_card.svg.png',
+    'Red Card':'assets/Red_card.svg.png',
+    'subst':'assets/repeat_318-596159.jpg',
+    'Var':'assets/var.jpg'};
+  /// No Image
+  static String noImage='https://previews.123rf.com/images/urfandadashov/urfandadashov1806/urfandadashov180601827/150417827-photo-not-available-vector-icon-isolated-on-transparent-background-photo-not-available-logo-concept.jpg';
 }

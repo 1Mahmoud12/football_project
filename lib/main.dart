@@ -5,6 +5,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
 import 'package:sofa_sccore/core/network/local.dart';
 import 'package:sofa_sccore/core/utils/constants.dart';
+import 'package:sofa_sccore/core/utils/dialog.dart';
+import 'package:sofa_sccore/core/utils/functions.dart';
 import 'package:sofa_sccore/core/utils/theme/dark_theme.dart';
 import 'package:sofa_sccore/core/utils/theme/light_theme.dart';
 import 'package:sofa_sccore/data/data_source/remote_data_source.dart';
@@ -54,7 +56,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    return BlocProvider(
+    return  BlocProvider(
       create: (context)=>MatchesCubit(seGet(),seGet(),seGet(),seGet(),seGet(),seGet(),seGet(), seGet(),seGet(),seGet(),seGet(),seGet(),seGet(),seGet(),)
         ..mode(mode: mode),
       child: BlocBuilder<MatchesCubit,MatchesState>(

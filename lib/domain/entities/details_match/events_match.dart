@@ -11,7 +11,7 @@ class EventsEntity{
     team=Teams(json['team']);
     player=Player(json['player']);
     assist=Assist(json['assist']);
-    type=json['type']??"NS";
+    type=json['type']=='Card'?json['detail']:json['type'];
     detail=json['detail']??"NS";
     comments=json['comments']??"NS";
   }
