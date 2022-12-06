@@ -30,7 +30,7 @@ var dialogController=TextEditingController();
             text: TextSpan(
               children: [
                 TextSpan(text: 'you should create account from ',style: Theme.of(context).textTheme.bodyText1!.copyWith(color: Colors.black)),
-                TextSpan(text: 'dashboard api',style:Theme.of(context).textTheme.bodyText1!.copyWith(color: Colors.blue),recognizer: TapGestureRecognizer()..onTap=()async{
+                TextSpan(text: 'dashboard api',style:Theme.of(context).textTheme.bodyText1!.copyWith(color: Colors.blue,decoration: TextDecoration.underline,fontSize: widthMedia*.05),recognizer: TapGestureRecognizer()..onTap=()async{
                   _launchUrl();
 
                 }),
