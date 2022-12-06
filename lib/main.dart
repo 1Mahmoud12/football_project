@@ -26,7 +26,7 @@ void main() async{
 
   bool? mode=await SharedPreference.getDataBool('mode');
   Constants.todaySharedPreference=await SharedPreference.getData('today');
-  //Constants.apiKey=await SharedPreference.getData('api');
+  Constants.apiKey=await SharedPreference.getData('api');
  Constants.favorites=await SharedPreference.getDataString('favorites');
 
   if(Constants.todaySharedPreference==null){}
