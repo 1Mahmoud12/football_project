@@ -3,7 +3,7 @@ import 'package:sofa_sccore/domain/entities/fixtures.dart';
 class Constants
 {
   static String api ='https://v3.football.api-sports.io';
-  static  String apiKey='20caee99a0c4f9fd91713690b0b75446' ;
+  static String? apiKey ;
   static Uri url =Uri.parse('https://dashboard.api-football.com/login/expirate');
   static List<String> endPoints=['teams','fixtures','fixtures/lineups',
     "players/squads",'standings','leagues','players','transfers',"odds/live","fixtures/statistics",'fixtures/events'];
@@ -11,7 +11,7 @@ class Constants
   //'x-rapidapi-key': '20caee99a0c4f9fd91713690b0b75446',
   static var headers = {
 
-    'x-rapidapi-key': apiKey,
+    'x-rapidapi-key': apiKey!,
     'x-rapidapi-host': 'v3.football.api-sports.io',
 
   };

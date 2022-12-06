@@ -2,11 +2,9 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:intl/intl.dart';
 import 'package:sofa_sccore/core/network/local.dart';
 import 'package:sofa_sccore/core/utils/constants.dart';
 import 'package:sofa_sccore/core/utils/dialog.dart';
-import 'package:sofa_sccore/core/utils/functions.dart';
 import 'package:sofa_sccore/core/utils/theme/dark_theme.dart';
 import 'package:sofa_sccore/core/utils/theme/light_theme.dart';
 import 'package:sofa_sccore/data/data_source/remote_data_source.dart';
@@ -28,6 +26,7 @@ void main() async{
 
   bool? mode=await SharedPreference.getDataBool('mode');
   Constants.todaySharedPreference=await SharedPreference.getData('today');
+  Constants.apiKey=await SharedPreference.getData('api');
  Constants.favorites=await SharedPreference.getDataString('favorites');
  Constants.runAllGames =true;
 
@@ -68,7 +67,7 @@ class MyApp extends StatelessWidget {
           debugShowCheckedModeBanner: false,
           darkTheme: dark,
           themeMode:MatchesCubit.get(context).checkMode? ThemeMode.dark:ThemeMode.light,
-          home:  MatchesAndLives(),
+          home:  Constants.apiKey!=null?MatchesAndLives():DialogMe(),
         );
         },
       ),

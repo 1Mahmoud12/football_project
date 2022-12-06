@@ -264,22 +264,18 @@ Widget matches(List <ResponseFixtures>model,index,context,{ bool live=false}){
                       ):
                       Column(
                         children: [
-                          if(model[index].fixtures.shortTime=='FT')
-                            Column(
+                         // if(model[index].fixtures.shortTime!='NS'||model[index].fixtures.shortTime!='TBD')
+                          if(model[index].goals.homeGoals!=null)
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+
                               children: [
-                                Row(
-                                  mainAxisAlignment: MainAxisAlignment.center,
+                                Text('${model[index].goals.homeGoals } :',style:Theme.of(context).textTheme.bodyText1),
+                                Text('${model[index].goals.awayGoals}',style: Theme.of(context).textTheme.bodyText1),
 
-                                  children: [
-                                    Text('${model[index].goals.homeGoals } :',style:Theme.of(context).textTheme.bodyText1),
-                                    Text('${model[index].goals.awayGoals}',style: Theme.of(context).textTheme.bodyText1),
-
-                                  ],
-                                ),
-                                SizedBox(height: heightMedia*.005,),
-                                Text(model[index].fixtures.shortTime!,style: Theme.of(context).textTheme.bodyText1,)
                               ],
                             ),
+                          SizedBox(height: heightMedia*.005,),
 
                           if(model[index].fixtures.shortTime=='NS')
                             Column(
@@ -289,7 +285,7 @@ Widget matches(List <ResponseFixtures>model,index,context,{ bool live=false}){
                                 Text(subStringForTime(time: model[index].fixtures.date.toString()),style: Theme.of(context).textTheme.bodyText1,),
                               ],
                             ),
-                          if(model[index].fixtures.shortTime!='FT'&&model[index].fixtures.shortTime!='NS')
+                          if(model[index].fixtures.shortTime!='NS')
                             Text(AppString.durationMatch[model[index].fixtures.shortTime!]!,style: Theme.of(context).textTheme.bodyText1,)
 
                         ],

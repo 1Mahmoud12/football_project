@@ -34,6 +34,7 @@ class AppString {
     'P':'Penalty In Progress',
     'SUSP':'Match Suspended',
     'AET':'AET',
+    'PEN':'FT Penalty',
     'INT':'Match Interrupted',
     'ABD':'Match Abandoned',
     'AWD':'Technical Loss',
