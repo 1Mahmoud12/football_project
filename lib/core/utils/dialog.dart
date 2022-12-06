@@ -1,3 +1,5 @@
+// ignore_for_file: must_be_immutable
+
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:sofa_sccore/core/utils/constants.dart';
@@ -7,19 +9,27 @@ import 'package:url_launcher/url_launcher.dart';
 
 import '../network/local.dart';
 
-class DialogMe extends StatelessWidget {
-   DialogMe({Key? key}) : super(key: key);
+class SpecificDialog extends StatelessWidget {
+   SpecificDialog({Key? key}) : super(key: key);
 var dialogController=TextEditingController();
   @override
   Widget build(BuildContext context) {
+    double heightMedia=MediaQuery.of(context).size.height;
+    double widthMedia=MediaQuery.of(context).size.width;
     return Scaffold(
       body: AlertDialog(
-        title: const Text('attention'),
+        title: Row(
+          children: [
+            Image.asset('assets/warning.png',height: heightMedia*.05,width: widthMedia*.08,),
+            SizedBox(width: widthMedia*.01,),
+            const Text(' attention'),
+          ],
+        ),
         content:  RichText(
             text: TextSpan(
               children: [
                 TextSpan(text: 'you should create account from ',style: Theme.of(context).textTheme.bodyText1!.copyWith(color: Colors.black)),
-                TextSpan(text: 'dashboard api',style: Theme.of(context).textTheme.bodyText1!.copyWith(color: Colors.blue),recognizer: TapGestureRecognizer()..onTap=()async{
+                TextSpan(text: 'dashboard api',style:Theme.of(context).textTheme.bodyText1!.copyWith(color: Colors.blue),recognizer: TapGestureRecognizer()..onTap=()async{
                   _launchUrl();
 
                 }),
@@ -31,7 +41,7 @@ var dialogController=TextEditingController();
             onFieldSubmitted: (s){
             Constants.apiKey=s;
           },
-      style: TextStyle(fontSize: 15,color: Colors.black),
+      style:const TextStyle(fontSize: 15,color: Colors.black),
 
       controller:dialogController ,
       keyboardType: TextInputType.text,

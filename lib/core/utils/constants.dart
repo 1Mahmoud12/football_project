@@ -1,4 +1,3 @@
-import 'package:sofa_sccore/domain/entities/fixtures.dart';
 
 class Constants
 {
@@ -57,13 +56,10 @@ class Constants
    /// List Favorite Team
     static List<int> favorites=[];
 
-   /// List For match live
-    static List<ResponseFixtures> liveFixtures=[];
 
   /// date Today for Fixtures
     static String? todaySharedPreference;
 
-    static bool runAllGames= true;
 
   /// Type of events
   static Map<String,String> typeEvents={'Goal':'assets/ball.svg',

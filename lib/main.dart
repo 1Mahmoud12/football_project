@@ -26,9 +26,8 @@ void main() async{
 
   bool? mode=await SharedPreference.getDataBool('mode');
   Constants.todaySharedPreference=await SharedPreference.getData('today');
-  Constants.apiKey=await SharedPreference.getData('api');
+  //Constants.apiKey=await SharedPreference.getData('api');
  Constants.favorites=await SharedPreference.getDataString('favorites');
- Constants.runAllGames =true;
 
   if(Constants.todaySharedPreference==null){}
   else if(int.parse(Constants.todaySharedPreference!)==int.parse(DateTime.now().toString().substring(11,13))){
@@ -40,7 +39,6 @@ void main() async{
     });
 
 
-    Constants.runAllGames=true;
   }
 
   Bloc.observer = MyBlocObserver();
@@ -67,7 +65,7 @@ class MyApp extends StatelessWidget {
           debugShowCheckedModeBanner: false,
           darkTheme: dark,
           themeMode:MatchesCubit.get(context).checkMode? ThemeMode.dark:ThemeMode.light,
-          home:  Constants.apiKey!=null?MatchesAndLives():DialogMe(),
+          home:  Constants.apiKey!=null?MatchesAndLives():SpecificDialog(),
         );
         },
       ),
