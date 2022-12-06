@@ -1,5 +1,6 @@
 // ignore_for_file: must_be_immutable
 
+
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:sofa_sccore/core/utils/constants.dart';
@@ -41,28 +42,33 @@ var dialogController=TextEditingController();
             onFieldSubmitted: (s){
             Constants.apiKey=s;
           },
-      style:const TextStyle(fontSize: 15,color: Colors.black),
-
-      controller:dialogController ,
-      keyboardType: TextInputType.text,
-      decoration: InputDecoration(
-
-        //label: Text('  Team',style: Theme.of(context).textTheme.bodyText1!.copyWith(fontSize: 15)),
-        //prefix: const Icon(Icons.search,color: Colors.white,size: 19),
-        hintText: '🔍 Input Your api',
-        hintStyle: Theme.of(context).textTheme.bodyText1!.copyWith(color: Colors.black),
-        border: OutlineInputBorder(
-
-            borderRadius: BorderRadius.circular(10),
-            borderSide:const BorderSide(width: 1,color: Colors.white)
-        ),
+            style:const TextStyle(fontSize: 15,color: Colors.black),
 
 
-      ),
+            controller:dialogController ,
+            keyboardType: TextInputType.text,
+            decoration: InputDecoration(
+
+              label: Text('    API',style: Theme.of(context).textTheme.bodyText1!.copyWith(fontSize: widthMedia*.05,color: Colors.blue)),
+              prefix: const Padding(
+                padding: EdgeInsets.only(right: 5.0),
+                child: Icon(Icons.edit,color: Colors.black,size: 15),
+              ),
+              hintText: 'ex:20ca5e99a094f9fd31713a90b0b75446',
+              hintStyle: Theme.of(context).textTheme.bodyText1!.copyWith(color: Colors.grey,fontSize: widthMedia*.037),
+              border: OutlineInputBorder(
+
+                  borderRadius: BorderRadius.circular(10),
+                  borderSide:const BorderSide(width: 1,color: Colors.white)
+              ),
+
+
+            ),
 
     ),
-          TextButton(
-              onPressed: () {
+          ElevatedButton(
+
+              onPressed: dialogController.text.length!=32? null:() {
                 SharedPreference.putDataString('api',dialogController.text );
                 navigatorReuse(context, MatchesAndLives());
 
