@@ -1,12 +1,12 @@
 # football world App
 
-### The football world application is showing results of today's matches.
-##### details team and standing it and matches for team.
-##### details match and events it and statistics for match.
-##### You can define some leagues in home page to show matches for it. 
+### The football world application showes results of today's matches.
+##### details of the team ,standing it and matches for team.
+##### details of the match, events it and statistics for matches.
+##### You can define some leagues at matches page to show matches of them. 
 ##### dark and light mode.
-##### search any team.
-##### add any team in favorites to know matches for it.
+##### search for any team.
+##### add any team in favorites to know the matches of it.
 
 # Football world mockup
 
