@@ -1,5 +1,7 @@
 import 'dart:convert';
 
+
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sofa_sccore/core/network/local.dart';
@@ -21,9 +23,16 @@ import 'core/utils/services/get_it.dart';
 
 void main() async{
   WidgetsFlutterBinding.ensureInitialized();
+ // FirebaseMessaging.onBackgroundMessage(const Messaging().firebaseMessagingBackgroundHandler);
+
+  /* Future<AppUpdateInfo> checkForUpdate(){
+    return ;
+  };*/
+  await Firebase.initializeApp(
+  //  options: DefaultFirebaseOptions.currentPlatform,
+  );
 
   ServiceGetIt().init();
-
   bool? mode=await SharedPreference.getDataBool('mode');
   Constants.todaySharedPreference=await SharedPreference.getData('today');
   Constants.apiKey=await SharedPreference.getData('api');
@@ -55,7 +64,7 @@ class MyApp extends StatelessWidget {
 
     return  BlocProvider(
       create: (context)=>MatchesCubit(seGet(),seGet(),seGet(),seGet(),seGet(),seGet(),seGet(), seGet(),seGet(),seGet(),seGet(),seGet(),seGet(),seGet(),)
-        ..mode(mode: mode),
+        ..mode(mode: mode)..messageFirebase(),
       child: BlocBuilder<MatchesCubit,MatchesState>(
         builder: (context,state) {
 

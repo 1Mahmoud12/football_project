@@ -23,7 +23,7 @@ class MatchesAndLives extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     if (RemoteDataSource.modelOfFixtures == null) {
-      MatchesCubit.get(context).allGames(DateTime.now().year,Constants.fromDate,Constants.toDate);
+      MatchesCubit.get(context).allGames(2022,Constants.fromDate,Constants.toDate);
 
     } else if (RemoteDataSource.modelOfFixtures != null &&
         MatchesCubit.get(context).countAllGames == 0) {
@@ -31,10 +31,10 @@ class MatchesAndLives extends StatelessWidget {
       MatchesCubit.get(context).timeToStartLive(MatchesCubit.get(context).sortModel, context);
       MatchesCubit.get(context).increment();
     }
+
     var widthMedia = MediaQuery.of(context).size.width;
     var heightMedia = MediaQuery.of(context).size.height;
     var size = MediaQuery.of(context).size.aspectRatio;
-
     return BlocConsumer<MatchesCubit, MatchesState>(
       listener: (context, state) {
         if (state is MatchesGetAllGamesSuccessState) {
@@ -87,7 +87,7 @@ class MatchesAndLives extends StatelessWidget {
                       children: [
                         TextButton(
                             onPressed: () {
-                              MatchesCubit.get(context).allGames(DateTime.now().year,
+                              MatchesCubit.get(context).allGames(2022,
                                   DateTime.now().add(const Duration(days: -7)).toString().substring(0, 10),
                                   DateTime.now().add(const Duration(days: -1)).toString().substring(0, 10));
                             },
@@ -97,7 +97,7 @@ class MatchesAndLives extends StatelessWidget {
                           child: RefreshIndicator(
                             edgeOffset: 100.0,
                             onRefresh: () async {
-                                  MatchesCubit.get(context).allGames(DateTime.now().year,Constants.fromDate,Constants.toDate);
+                                  MatchesCubit.get(context).allGames(2022,Constants.fromDate,Constants.toDate);
                             },
                             child: ListView.builder(
                                 physics: const BouncingScrollPhysics(),
@@ -238,7 +238,7 @@ class MatchesAndLives extends StatelessWidget {
 
                                                             if (newLeagues.isNotEmpty) {
                                                               Constants.leagueId = newLeagues;
-                                                              MatchesCubit.get(context).allGames(DateTime.now().year,Constants.fromDate,Constants.toDate);
+                                                              MatchesCubit.get(context).allGames(2022,Constants.fromDate,Constants.toDate);
                                                             }
                                                             Navigator.pop(context);
                                                           },

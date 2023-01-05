@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "197475729786",
+    "project_id": "footballworld-5a146",
+    "storage_bucket": "footballworld-5a146.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:197475729786:android:24e5c5d11a3a0315a796c3",
+        "android_client_info": {
+          "package_name": "com.example.sofa_sccore"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "197475729786-vu45jr793m4cia32h29eah3mqsu2lmpu.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.sofa_sccore",
+            "certificate_hash": "0a3f515d158412424767db35a0501b764e639853"
+          }
+        },
+        {
+          "client_id": "197475729786-hp84r9n8jaubnud8meskb75bqpubsnbf.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDPKDR9869OqRnFF2DchaR-EqxZF8PVgdQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "197475729786-hp84r9n8jaubnud8meskb75bqpubsnbf.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

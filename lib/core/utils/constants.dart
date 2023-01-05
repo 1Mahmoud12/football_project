@@ -5,7 +5,7 @@ class Constants
   static String? apiKey ;
   static Uri url =Uri.parse('https://dashboard.api-football.com');
   static List<String> endPoints=['teams','fixtures','fixtures/lineups',
-    "players/squads",'standings','leagues','players','transfers',"odds/live","fixtures/statistics",'fixtures/events'];
+    "players/squads",'standings','leagues','players','transfers',"odds/live","fixtures/statistics",'fixtures/events','status'];
 
   //'x-rapidapi-key': '20caee99a0c4f9fd91713690b0b75446',
   static var headers = {

@@ -3,6 +3,7 @@ import 'dart:async';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
+import 'package:sofa_sccore/core/firebase/messaging.dart';
 import 'package:sofa_sccore/core/network/local.dart';
 import 'package:sofa_sccore/core/utils/constants.dart';
 import 'package:sofa_sccore/core/utils/functions.dart';
@@ -296,14 +297,15 @@ class MatchesCubit extends Cubit<MatchesState> {
 
 
    return await LiveUseCase(seGet()).execute(idFixtures).then((value) {
+
      modelLive[idFixtures]=value;
 
      for(int i=0;i<RemoteDataSource.modelOfFixtures!.length;i++){
        if( value.fixture.idFixture==sortModel[i].fixtures.idFixtures){
          sortModel[i].goals.homeGoals =value.teams.homeGoals;
          sortModel[i].goals.awayGoals=value.teams.awayGoals;
-         print('${sortModel[i].goals.homeGoals} : ${value.teams.homeGoals}');
-         print('${sortModel[i].goals.awayGoals} : ${value.teams.awayGoals}');
+         sortModel[i].fixtures.longTime=value.fixture.statusLong;
+         print('${sortModel[i].goals.homeGoals} : ${sortModel[i].goals.awayGoals}');
 
          matchDuration[sortModel[i].fixtures.idFixtures]= Duration(seconds:int.parse(value.fixture.seconds.substring(value.fixture.seconds.length-2)) ,minutes: value.fixture.elapsed);
          Timer? timer;
@@ -323,6 +325,7 @@ class MatchesCubit extends Cubit<MatchesState> {
           if(value.status.finished||value.fixture.statusLong=='Match Finished'){
             stopTimer(i);
             liveDate[i]=false;
+
           }
 
        }
@@ -350,7 +353,7 @@ class MatchesCubit extends Cubit<MatchesState> {
       int hour = (int.parse(model[i].fixtures.date.substring(11, 13)))-DateTime.now().hour;
       int minutes = (int.parse(model[i].fixtures.date.substring(14, 16)))-DateTime.now().minute;
 
-      if(toDay &&hour+2>0&&false ) {
+      if(toDay &&hour+2>0 ) {
 
 
         Timer(Duration(hours: hour,minutes: minutes), () {
@@ -383,10 +386,10 @@ class MatchesCubit extends Cubit<MatchesState> {
   void checkCount(index,List<ResponseFixtures> model) {
     var plusSecondBy = 1;
     int seconds = matchDuration[model[index].fixtures.idFixtures]!.inSeconds + plusSecondBy;
-    if (seconds > 5400) {
+    if (seconds > 20000) {
       countUpTimer![index].cancel();
     } else {
-      if(seconds%120==0){
+      if(seconds%180==0){
         print('minutes + 2');
         liveMatch(model[index].fixtures.idFixtures);
       }
@@ -399,5 +402,9 @@ class MatchesCubit extends Cubit<MatchesState> {
   void selectedLeague(StandingLeague model,bool check){
     emit(MatchesAddLeagueState());
       check?selectedOneLeague.add(model):selectedOneLeague.remove(model);
+  }
+  void messageFirebase(){
+      const Messaging().message();
+      emit(MatchesMessageState());
   }
 }

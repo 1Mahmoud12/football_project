@@ -94,3 +94,6 @@ class MatchesCountPlusState extends MatchesState{}
 //select league
 class MatchesAddLeagueState extends MatchesState{}
 
+//select message
+class MatchesMessageState extends MatchesState{}
+

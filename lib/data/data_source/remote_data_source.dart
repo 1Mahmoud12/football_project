@@ -16,7 +16,6 @@ import '../models/champions_model.dart';
 import '../models/details_match/fixture_lineup_model.dart';
 import '../models/squad_model.dart';
 import '../models/standing_model.dart';
-import 'package:intl/intl.dart';
 
 import '../models/details_match/statistics_model.dart';
 
@@ -34,7 +33,7 @@ abstract class BaseRemoteDataSource {
   Future<List<ChampionsModel>> champions(int teamId,String season);
   Future<StatisticsPlayerModel?> statisticsPlayer(int idPlayer,String season);
   Future<List<TransferModel?>> transferPlayer(int idPlayer);
-  Future<LiveMatchModel> liveMatch(int idFixture);
+  Future<dynamic> liveMatch(int idFixture);
   Future<List<StatisticsMatch>> getStatistics(int idFixture);
   Future<void> getEvents(int idFixture);
 
@@ -83,18 +82,20 @@ class RemoteDataSource implements BaseRemoteDataSource {
   Future<List<ResponseFixtures>> getAllGames(int season, String fromDate,String toDate) async {
     modelOfFixtures = [];
     List<String> storeModel=[];
-
     for (int i = 0; i < Constants.leagueId.length; i++) {
       final request = await http.get(
           Uri.parse(
               '${Constants.api}/${Constants.endPoints[1]}?league=${Constants.leagueId[i].toString()}&from=$fromDate&to=$toDate&season=$season&timezone=${Constants.timezone}'),
           headers: Constants.headers);
+
+
       if (jsonDecode(request.body)['results'] > 0) {
 
         today=DateTime.now().toString().substring(11,13) ;
         SharedPreference.putDataString('today', today!);
 
         jsonDecode(request.body)['response'].forEach((element) {
+          //print(element);
           modelOfFixtures!.add(ResponseFixtures(element));
           storeModel.add(jsonEncode(element));
 
@@ -102,7 +103,7 @@ class RemoteDataSource implements BaseRemoteDataSource {
 
       }
       else{
-        print(jsonDecode(request.body)['errors']);
+        print("error : ${jsonDecode(request.body)['errors']}");
 
       }
     }
@@ -249,7 +250,7 @@ class RemoteDataSource implements BaseRemoteDataSource {
   }
 static  LiveMatchModel? liveModel;
   @override
-  Future<LiveMatchModel> liveMatch(int idFixture) async{
+  Future<dynamic> liveMatch(int idFixture) async{
 
     final request = await http.get(
         Uri.parse(
@@ -258,13 +259,14 @@ static  LiveMatchModel? liveModel;
 
     if (jsonDecode(request.body)['results'] > 0) {
       liveModel=LiveMatchModel(jsonDecode(request.body)['response'][0]);
+      return  liveModel!;
 
     }else{
        print(jsonDecode(request.body)['errors']);
 
     }
 
-    return  liveModel!;
+
   }
 
   static List<StandingLeague>? changeLeaguesModel;
