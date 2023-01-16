@@ -4,6 +4,7 @@ import 'package:conditional_builder_null_safety/conditional_builder_null_safety.
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:liquid_progress_indicator/liquid_progress_indicator.dart';
+import 'package:sofa_sccore/core/utils/constants.dart';
 import 'package:sofa_sccore/core/utils/strings.dart';
 import 'package:sofa_sccore/data/data_source/remote_data_source.dart';
 import 'package:sofa_sccore/data/models/champions_model.dart';
@@ -340,14 +341,13 @@ List<ChampionsModel> championsLeague(){
 int selectNotStarted(List<ResponseFixtures> model){
   int item=0;
   for(int i=0;i<model.length;i++){
-
+    //print(model[i].fixtures.shortTime);
     if(model[i].fixtures.shortTime=='NS'){
       item=i;
       break;
     }}
   return item;
   }
-
 Widget indicator(){
   return SizedBox(
     height: 50,

@@ -78,14 +78,15 @@ class RemoteDataSource implements BaseRemoteDataSource {
 
   static  List<ResponseFixtures>? modelOfFixtures;
   static String? today;
+  static int countLeagueId = 0;
   @override
   Future<List<ResponseFixtures>> getAllGames(int season, String fromDate,String toDate) async {
     modelOfFixtures = [];
     List<String> storeModel=[];
-    for (int i = 0; i < Constants.leagueId.length; i++) {
+    for (countLeagueId = 0; countLeagueId < Constants.leagueId.length; countLeagueId++) {
       final request = await http.get(
           Uri.parse(
-              '${Constants.api}/${Constants.endPoints[1]}?league=${Constants.leagueId[i].toString()}&from=$fromDate&to=$toDate&season=$season&timezone=${Constants.timezone}'),
+              '${Constants.api}/${Constants.endPoints[1]}?league=${Constants.leagueId[countLeagueId].toString()}&from=$fromDate&to=$toDate&season=$season&timezone=${Constants.timezone}'),
           headers: Constants.headers);
 
 
@@ -181,7 +182,7 @@ class RemoteDataSource implements BaseRemoteDataSource {
           Uri.parse(
               '${Constants.api}/${Constants.endPoints[1]}?team=$team&season=$season'),
           headers: Constants.headers);
-      //print(jsonDecode(request.body)['errors']);
+      print(jsonDecode(request.body)['parameters']);
       if (jsonDecode(request.body)['results'] > 0) {
         jsonDecode(request.body)['response'].forEach((element) {
           modelMatchesForTeam.add(ResponseFixtures(element));

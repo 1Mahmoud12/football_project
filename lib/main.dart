@@ -17,6 +17,7 @@ import 'package:sofa_sccore/presentation/bloc/cubit.dart';
 import 'package:sofa_sccore/presentation/bloc/states.dart';
 
 import 'package:sofa_sccore/presentation/screens/matches_and_lives.dart';
+import 'package:sofa_sccore/presentation/screens/splash_view.dart';
 
 import 'core/bloc_observer.dart';
 import 'core/utils/services/get_it.dart';
@@ -74,7 +75,7 @@ class MyApp extends StatelessWidget {
           debugShowCheckedModeBanner: false,
           darkTheme: dark,
           themeMode:MatchesCubit.get(context).checkMode? ThemeMode.dark:ThemeMode.light,
-          home:  Constants.apiKey!=null?MatchesAndLives():SpecificDialog(),
+          home:  Constants.apiKey!=null?const SplashView():SpecificDialog(),
         );
         },
       ),

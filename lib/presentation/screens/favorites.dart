@@ -34,7 +34,6 @@ class Favorites extends StatelessWidget {
             condition: MatchesCubit.get(context).countListFavorites == Constants.favorites.length ,
             builder: (context) {
               MatchesCubit.get(context).timeToStartLive(model, context);
-
             index2 = selectNotStarted(sortMatches(MatchesCubit.get(context).modelFavorites));
 
               if(MatchesCubit.get(context).countListFavorites!=0) {
@@ -66,7 +65,8 @@ class Favorites extends StatelessWidget {
 
   void favoritesMatches(context) {
     for (int i = 0; i < Constants.favorites.length; i++) {
-      MatchesCubit.get(context).matchesForTeamFavorites(Constants.favorites[i], DateTime.now().year);
+
+      MatchesCubit.get(context).matchesForTeamFavorites(Constants.favorites[i], 2022);
     }
   }
 

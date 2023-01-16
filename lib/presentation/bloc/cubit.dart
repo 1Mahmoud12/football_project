@@ -69,7 +69,7 @@ class MatchesCubit extends Cubit<MatchesState> {
   int countAllGames =0;
   void increment(){
     countAllGames++;
-    emit(MatchesCountPlusState());
+    //emit(MatchesCountPlusState());
   }
   List<ResponseFixtures> sortModel=[];
   Future<void> allGames(int season, fromDate, toDate) async {
@@ -353,7 +353,7 @@ class MatchesCubit extends Cubit<MatchesState> {
       int hour = (int.parse(model[i].fixtures.date.substring(11, 13)))-DateTime.now().hour;
       int minutes = (int.parse(model[i].fixtures.date.substring(14, 16)))-DateTime.now().minute;
 
-      if(toDay &&hour+2>0 ) {
+      if(toDay &&hour+2>0 &&false) {
 
 
         Timer(Duration(hours: hour,minutes: minutes), () {
@@ -392,6 +392,7 @@ class MatchesCubit extends Cubit<MatchesState> {
       if(seconds%180==0){
         print('minutes + 2');
         liveMatch(model[index].fixtures.idFixtures);
+        emit(MatchesContinueState());
       }
       matchDuration[model[index].fixtures.idFixtures] = Duration(seconds: seconds);
       emit(MatchesContinueState());

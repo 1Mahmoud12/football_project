@@ -4,6 +4,7 @@ import 'package:conditional_builder_null_safety/conditional_builder_null_safety.
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:ionicons/ionicons.dart';
+import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 import 'package:sofa_sccore/core/utils/constants.dart';
 import 'package:sofa_sccore/core/utils/functions.dart';
 import 'package:sofa_sccore/data/data_source/remote_data_source.dart';
@@ -19,6 +20,8 @@ class MatchesAndLives extends StatelessWidget {
   bool enabled = true;
 
   MatchesAndLives({super.key});
+  ItemScrollController scrollController = ItemScrollController();
+  int index = 0;
 
   @override
   Widget build(BuildContext context) {
@@ -31,6 +34,13 @@ class MatchesAndLives extends StatelessWidget {
       MatchesCubit.get(context).timeToStartLive(MatchesCubit.get(context).sortModel, context);
       MatchesCubit.get(context).increment();
     }
+    index = selectNotStarted(sortMatches(MatchesCubit.get(context).sortModel));
+
+    Future.delayed(const Duration(seconds: 0),() async {
+      print(index);
+      print('sprint');
+      return await scrollToIndex();
+    },);
 
     var widthMedia = MediaQuery.of(context).size.width;
     var heightMedia = MediaQuery.of(context).size.height;
@@ -82,7 +92,10 @@ class MatchesAndLives extends StatelessWidget {
                     )),
                 fallback: (context) =>  ConditionalBuilder(
                   condition: RemoteDataSource.modelOfFixtures!.isNotEmpty,
-                  builder: (context)=> SingleChildScrollView(
+                  builder: (context) {
+
+
+                    return SingleChildScrollView(
                     child: Column(
                       children: [
                         TextButton(
@@ -99,8 +112,9 @@ class MatchesAndLives extends StatelessWidget {
                             onRefresh: () async {
                                   MatchesCubit.get(context).allGames(2022,Constants.fromDate,Constants.toDate);
                             },
-                            child: ListView.builder(
+                            child: ScrollablePositionedList.builder(
                                 physics: const BouncingScrollPhysics(),
+                                itemScrollController: scrollController,
                                 itemBuilder: (ctx, index) {
                                   return matches(sortMatches( RemoteDataSource.modelOfFixtures!), index, context, live: MatchesCubit.get(context).liveDate[index]);
                                 },
@@ -109,7 +123,8 @@ class MatchesAndLives extends StatelessWidget {
                         ),
                       ],
                     ),
-                  ),
+                  );
+                  },
                   fallback: (context)=>Column(
 
                     children: [
@@ -302,5 +317,10 @@ class MatchesAndLives extends StatelessWidget {
     }
 
     return height;
+  }
+
+  Future scrollToIndex() async {
+    scrollController.jumpTo(
+      /*duration: Duration(seconds: Constants.favorites.length)*/ index: index,alignment: .2);
   }
 }
