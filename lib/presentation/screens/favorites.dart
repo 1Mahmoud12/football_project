@@ -9,18 +9,19 @@ import 'package:sofa_sccore/presentation/bloc/states.dart';
 
 import '../../core/utils/constants.dart';
 
-class Favorites extends StatelessWidget {
+class FavouriteTeams extends StatelessWidget {
 
-  ItemScrollController scrollController = ItemScrollController();
-  bool enabled =true;
-  int index2 = 0;
+  final ItemScrollController _scrollController = ItemScrollController();
+  int index2=0 ;
 
-  Favorites({super.key});
+  FavouriteTeams({super.key});
 
 
 
   @override
   Widget build(BuildContext context) {
+    bool enabled =true;
+
     favoritesMatches(context);
     var model = MatchesCubit.get(context).modelFavorites;
     MatchesCubit.get(context).countListFavorites =0;
@@ -37,7 +38,7 @@ class Favorites extends StatelessWidget {
             index2 = selectNotStarted(sortMatches(MatchesCubit.get(context).modelFavorites));
 
               if(MatchesCubit.get(context).countListFavorites!=0) {
-                Future.delayed(const Duration(seconds: 1),() async=> await scrollToIndex(),);
+                Future.delayed(const Duration(milliseconds: 100),() async=> await scrollToIndex(),);
               }
 
               return Padding(
@@ -46,7 +47,7 @@ class Favorites extends StatelessWidget {
                   children: [
                     Expanded(
                       child: ScrollablePositionedList.builder(
-                        itemScrollController: scrollController,
+                        itemScrollController: _scrollController,
                         itemBuilder: (context, index) => matches(sortMatches(model), index, context),
                         itemCount: model.length,
                       ),
@@ -71,7 +72,7 @@ class Favorites extends StatelessWidget {
   }
 
   Future scrollToIndex() async {
-    scrollController.jumpTo(
+    _scrollController.jumpTo(
         /*duration: Duration(seconds: Constants.favorites.length)*/ index: index2,alignment: 0.3);
   }
 

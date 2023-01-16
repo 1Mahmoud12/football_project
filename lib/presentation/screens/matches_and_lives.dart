@@ -36,11 +36,7 @@ class MatchesAndLives extends StatelessWidget {
     }
     index = selectNotStarted(sortMatches(MatchesCubit.get(context).sortModel));
 
-    Future.delayed(const Duration(seconds: 0),() async {
-      print(index);
-      print('sprint');
-      return await scrollToIndex();
-    },);
+
 
     var widthMedia = MediaQuery.of(context).size.width;
     var heightMedia = MediaQuery.of(context).size.height;
@@ -63,13 +59,13 @@ class MatchesAndLives extends StatelessWidget {
             centerTitle: true,
             leading: IconButton(
                 onPressed: () {
-                  navigatorReuse(context, Favorites());
+                  Navigator.of(context).push(createRoute(FavouriteTeams(),0,1));
                 },
                 icon: const Icon(Icons.favorite)),
             actions: [
               IconButton(
                   onPressed: () {
-                    navigatorReuse(context, SearchTeam());
+                    Navigator.of(context).push(createRoute(SearchTeam(),0,1));
                   },
                   icon: const Icon(Icons.search_rounded)),
               IconButton(
@@ -93,8 +89,7 @@ class MatchesAndLives extends StatelessWidget {
                 fallback: (context) =>  ConditionalBuilder(
                   condition: RemoteDataSource.modelOfFixtures!.isNotEmpty,
                   builder: (context) {
-
-
+                    Future.delayed(const Duration(milliseconds: 500),() async => await scrollToIndex(),);
                     return SingleChildScrollView(
                     child: Column(
                       children: [

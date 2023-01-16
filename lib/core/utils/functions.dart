@@ -4,7 +4,6 @@ import 'package:conditional_builder_null_safety/conditional_builder_null_safety.
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:liquid_progress_indicator/liquid_progress_indicator.dart';
-import 'package:sofa_sccore/core/utils/constants.dart';
 import 'package:sofa_sccore/core/utils/strings.dart';
 import 'package:sofa_sccore/data/data_source/remote_data_source.dart';
 import 'package:sofa_sccore/data/models/champions_model.dart';
@@ -182,7 +181,6 @@ Widget matches(List <ResponseFixtures>model,index,context,{ bool live=false}){
   var heightMedia=MediaQuery.of(context).size.height;
   final minutes=stringToDigits(MatchesCubit.get(context).matchDuration[model[index].fixtures.idFixtures]!.inMinutes.remainder(90));
   final seconds=stringToDigits(MatchesCubit.get(context).matchDuration[model[index].fixtures.idFixtures]!.inSeconds.remainder(60));
-
   return InkWell(
     onTap: ()async{
       MatchesCubit.get(context).fixturesAndLineup(model[index].fixtures.idFixtures);
@@ -229,8 +227,8 @@ Widget matches(List <ResponseFixtures>model,index,context,{ bool live=false}){
                           MatchesCubit.get(context).detailsVenueTeam( model[index].teams.idHome);
                           MatchesCubit.get(context).getSquad( model[index].teams.idHome);
                           MatchesCubit.get(context).standing(model[index].league.idLeague, '2022');
-                          navigatorReuse(context, Team(idTeam:model[index].teams.idHome ,));
-                        },
+                          Navigator.of(context).push(createRoute(Team(idTeam: model[index].teams.idHome),-1,0));
+                          },
                         child: Column(
                           children: [
                             Image(image:NetworkImage(model[index].teams.homeLogo),height:50,width: widthMedia*.08,),
@@ -303,7 +301,7 @@ Widget matches(List <ResponseFixtures>model,index,context,{ bool live=false}){
                           MatchesCubit.get(context).getSquad( model[index].teams.idAway);
                           MatchesCubit.get(context).standing(model[index].league.idLeague, '2022');
 
-                          navigatorReuse(context, Team(idTeam:model[index].teams.idAway ));
+                          Navigator.of(context).push(createRoute(Team(idTeam: model[index].teams.idAway),360,0));
 
                         },
                         child: Column(
@@ -366,3 +364,23 @@ Widget indicator(){
     ),
   );
 }
+
+Route createRoute(Widget detailsTeam,double x,double y) {
+  return PageRouteBuilder(
+    pageBuilder: (context, animation, secondaryAnimation) =>  detailsTeam,
+    transitionDuration: const Duration(milliseconds: 500),
+    transitionsBuilder: (context, animation, secondaryAnimation, child) {
+      var begin = Offset(x, y);
+      const end = Offset.zero;
+      const curve = Curves.ease;
+
+      var tween = Tween(begin: begin, end: end).chain(CurveTween(curve: curve));
+
+      return SlideTransition(
+        position: animation.drive(tween),
+        child: child,
+      );
+    },
+  );
+}
+
