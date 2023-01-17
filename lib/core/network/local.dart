@@ -18,8 +18,7 @@ class SharedPreference
    static Future<List<int>> getDataString(String key)async{
      var prefs = await SharedPreferences.getInstance();
      List<int> repeat=[] ;
-     if( prefs.getStringList(key)==null){
-     }
+     if( prefs.getStringList(key)==null){}
      else{
        repeat=prefs.getStringList(key)!.map((e) => int.parse(e)).toList();
 

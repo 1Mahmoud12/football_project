@@ -11,10 +11,8 @@ import '../../core/utils/constants.dart';
 
 class FavouriteTeams extends StatelessWidget {
 
-  final ItemScrollController _scrollController = ItemScrollController();
-  int index2=0 ;
-
-  FavouriteTeams({super.key});
+   FavouriteTeams({super.key});
+  final ItemScrollController scrollController = ItemScrollController();
 
 
 
@@ -35,10 +33,10 @@ class FavouriteTeams extends StatelessWidget {
             condition: MatchesCubit.get(context).countListFavorites == Constants.favorites.length ,
             builder: (context) {
               MatchesCubit.get(context).timeToStartLive(model, context);
-            index2 = selectNotStarted(sortMatches(MatchesCubit.get(context).modelFavorites));
+           //index2 = selectNotStarted(sortMatches(MatchesCubit.get(context).modelFavorites));
 
               if(MatchesCubit.get(context).countListFavorites!=0) {
-                Future.delayed(const Duration(milliseconds: 100),() async=> await scrollToIndex(),);
+                Future.delayed(const Duration(milliseconds: 100),() => selectNotStarted(sortMatches(MatchesCubit.get(context).modelFavorites),scrollController),);
               }
 
               return Padding(
@@ -47,7 +45,7 @@ class FavouriteTeams extends StatelessWidget {
                   children: [
                     Expanded(
                       child: ScrollablePositionedList.builder(
-                        itemScrollController: _scrollController,
+                        itemScrollController:scrollController,
                         itemBuilder: (context, index) => matches(sortMatches(model), index, context),
                         itemCount: model.length,
                       ),
@@ -67,13 +65,8 @@ class FavouriteTeams extends StatelessWidget {
   void favoritesMatches(context) {
     for (int i = 0; i < Constants.favorites.length; i++) {
 
-      MatchesCubit.get(context).matchesForTeamFavorites(Constants.favorites[i], 2022);
+      MatchesCubit.get(context).matchesForTeamFavorites(Constants.favorites[i]);
     }
-  }
-
-  Future scrollToIndex() async {
-    _scrollController.jumpTo(
-        /*duration: Duration(seconds: Constants.favorites.length)*/ index: index2,alignment: 0.3);
   }
 
 

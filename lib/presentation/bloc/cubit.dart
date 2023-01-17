@@ -72,10 +72,10 @@ class MatchesCubit extends Cubit<MatchesState> {
     //emit(MatchesCountPlusState());
   }
   List<ResponseFixtures> sortModel=[];
-  Future<void> allGames(int season, fromDate, toDate) async {
+  Future<void> allGames( fromDate, toDate) async {
     emit(MatchesGetAllGamesLoadingState());
     await GetAllGamesUseCase(seGet())
-        .execute(season, fromDate, toDate)
+        .execute( fromDate, toDate)
         .then((value) {
         // print( SharedPreference.getData('fixtures'));
       sortModel=sortMatches(RemoteDataSource.modelOfFixtures!);
@@ -111,10 +111,10 @@ class MatchesCubit extends Cubit<MatchesState> {
     });
   }
 
-  Future standing(int leagueId, String season) async {
+  Future standing(int leagueId) async {
     emit(MatchesGetStandingLoadingState());
 
-      await StandingLeagueUseCase(seGet()).execute(leagueId, season).then((value) {
+      await StandingLeagueUseCase(seGet()).execute(leagueId).then((value) {
       emit(MatchesGetStandingSuccessState());
     }).catchError((error) {
       print(error.toString());
@@ -126,9 +126,9 @@ class MatchesCubit extends Cubit<MatchesState> {
   }
 
 
-  Future matchesForTeamFun(int teamId, int season) async {
+  Future matchesForTeamFun(int teamId) async {
     emit(MatchesGetMatchesForTeamLoadingState());
-    return await MatchesForTeam(seGet()).execute(teamId, season).then((value) {
+    return await MatchesForTeam(seGet()).execute(teamId).then((value) {
       emit(MatchesGetMatchesForTeamSuccessState());
     }).catchError((error) {
       emit(MatchesGetMatchesForTeamErrorState());
@@ -139,10 +139,10 @@ class MatchesCubit extends Cubit<MatchesState> {
   int countListFavorites=0;
   double index=0.0;
 
-  Future matchesForTeamFavorites(int teamId, int season) async {
+  Future matchesForTeamFavorites(int teamId) async {
     emit(MatchesGetMatchesForTeamFavoritesLoadingState());
     modelFavorites = [];
-    return await MatchesForTeam(seGet()).execute(teamId, season).then((value) {
+    return await MatchesForTeam(seGet()).execute(teamId).then((value) {
       modelFavorites.addAll(value);
       countListFavorites++;
 
@@ -214,27 +214,27 @@ class MatchesCubit extends Cubit<MatchesState> {
     }
   }
 
-  Future championsTeam(int teamId, {String season = '2022',bool search =false}) async {
+  Future championsTeam(int teamId, {bool search =false}) async {
     emit(MatchesChampionsTeamLoadingState());
-    return await championsUseCase.execute(teamId, season).then((value) {
+    return await championsUseCase.execute(teamId).then((value) {
       if(search) {
-        standing(championsLeague()[0].league!.id, '2022');
+        standing(championsLeague()[0].league!.id);
       }
       emit(MatchesChampionsTeamSuccessState());
     });
   }
 
-  Future detailsVenueTeam(int idTeam, {String season = '2022'}) async {
+  Future detailsVenueTeam(int idTeam, ) async {
     emit(MatchesInfoVenueLoadingState());
     return await InfoVenueTeamUseCase(seGet()).execute(idTeam).then((value) {
       emit(MatchesChampionsTeamSuccessState());
     });
   }
 
-  Future statisticsPlayer(int idPlayer, {String season = '2022'}) async {
+  Future statisticsPlayer(int idPlayer, ) async {
     emit(MatchesStatisticsPlayerLoadingState());
     return await StatisticsPlayerUseCase(seGet())
-        .execute(idPlayer, season)
+        .execute(idPlayer)
         .then((value) {
       emit(MatchesStatisticsPlayerSuccessState());
     });

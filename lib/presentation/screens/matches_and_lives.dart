@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:ionicons/ionicons.dart';
 import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
+import 'package:sofa_sccore/core/network/local.dart';
 import 'package:sofa_sccore/core/utils/constants.dart';
 import 'package:sofa_sccore/core/utils/functions.dart';
 import 'package:sofa_sccore/data/data_source/remote_data_source.dart';
@@ -26,7 +27,7 @@ class MatchesAndLives extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     if (RemoteDataSource.modelOfFixtures == null) {
-      MatchesCubit.get(context).allGames(2022,Constants.fromDate,Constants.toDate);
+      MatchesCubit.get(context).allGames(Constants.fromDate,Constants.toDate);
 
     } else if (RemoteDataSource.modelOfFixtures != null &&
         MatchesCubit.get(context).countAllGames == 0) {
@@ -34,7 +35,6 @@ class MatchesAndLives extends StatelessWidget {
       MatchesCubit.get(context).timeToStartLive(MatchesCubit.get(context).sortModel, context);
       MatchesCubit.get(context).increment();
     }
-    index = selectNotStarted(sortMatches(MatchesCubit.get(context).sortModel));
 
 
 
@@ -89,13 +89,13 @@ class MatchesAndLives extends StatelessWidget {
                 fallback: (context) =>  ConditionalBuilder(
                   condition: RemoteDataSource.modelOfFixtures!.isNotEmpty,
                   builder: (context) {
-                    Future.delayed(const Duration(milliseconds: 500),() async => await scrollToIndex(),);
+                    Future.delayed(const Duration(milliseconds: 500),() async => selectNotStarted(sortMatches(MatchesCubit.get(context).sortModel),scrollController),);
                     return SingleChildScrollView(
                     child: Column(
                       children: [
                         TextButton(
                             onPressed: () {
-                              MatchesCubit.get(context).allGames(2022,
+                              MatchesCubit.get(context).allGames(
                                   DateTime.now().add(const Duration(days: -7)).toString().substring(0, 10),
                                   DateTime.now().add(const Duration(days: -1)).toString().substring(0, 10));
                             },
@@ -105,7 +105,9 @@ class MatchesAndLives extends StatelessWidget {
                           child: RefreshIndicator(
                             edgeOffset: 100.0,
                             onRefresh: () async {
-                                  MatchesCubit.get(context).allGames(2022,Constants.fromDate,Constants.toDate);
+                                  MatchesCubit.get(context).allGames(Constants.fromDate,Constants.toDate);
+                                  Future.delayed(const Duration(milliseconds: 500),() async => selectNotStarted(sortMatches(MatchesCubit.get(context).sortModel),scrollController),);
+
                             },
                             child: ScrollablePositionedList.builder(
                                 physics: const BouncingScrollPhysics(),
@@ -248,7 +250,8 @@ class MatchesAndLives extends StatelessWidget {
 
                                                             if (newLeagues.isNotEmpty) {
                                                               Constants.leagueId = newLeagues;
-                                                              MatchesCubit.get(context).allGames(2022,Constants.fromDate,Constants.toDate);
+                                                              SharedPreference.putDataStringList('newLeagues', newLeagues);
+                                                              MatchesCubit.get(context).allGames(Constants.fromDate,Constants.toDate);
                                                             }
                                                             Navigator.pop(context);
                                                           },

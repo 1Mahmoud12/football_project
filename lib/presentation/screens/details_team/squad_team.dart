@@ -77,9 +77,11 @@ class SquadTeam extends StatelessWidget {
       padding: const EdgeInsets.all(10.0),
       child: InkWell(
         onTap: (){
-          MatchesCubit.get(context).statisticsPlayer(model.player[index].id,season: DateTime.now().year.toString());
+          MatchesCubit.get(context).statisticsPlayer(model.player[index].id,);
           MatchesCubit.get(context).transferPlayer(model.player[index].id);
-          navigatorReuse(context, PlayerInfo(idPlayer: model.player[index].id, idTeam: model.team.id));
+          Navigator.of(context).push(createRoute( PlayerInfo(idPlayer: model.player[index].id, idTeam: model.team.id),-1,0));
+
+
         },
         child: Row(
           children: [

@@ -116,7 +116,8 @@ class _StandingTeamState extends State<StandingTeam> {
             value0 = newValue.toString();
             for (var element in RemoteDataSource.modelChampionsTeam) {
               if(element.league!.name==newValue.toString()){
-                  MatchesCubit.get(context).standing(element.league!.id, DateTime.now().year.toString());
+
+                  MatchesCubit.get(context).standing(element.league!.id, );
               }
             }
           });

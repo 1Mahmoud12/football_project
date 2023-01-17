@@ -5,7 +5,7 @@ class StatisticsPlayerUseCase{
   final BaseFootballTeams baseFootballTeams;
 
   StatisticsPlayerUseCase(this.baseFootballTeams);
-  Future<PlayerDetailsEntities?> execute(int idPlayer,String season)async{
-    return await baseFootballTeams.statisticsPlayer(idPlayer, season);
+  Future<PlayerDetailsEntities?> execute(int idPlayer)async{
+    return await baseFootballTeams.statisticsPlayer(idPlayer);
   }
 }

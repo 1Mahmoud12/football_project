@@ -24,14 +24,14 @@ abstract class BaseRemoteDataSource {
 
   Future<List<SearchTeamsModel>> searchTeam(String search);
   Future<SearchTeamsModel?> infoVenueTeam(int idTeam);
-  Future<List<ResponseFixtures>> matchesForTeam(int team,int season);
-  Future<List<ResponseFixtures>> getAllGames(int season, String fromDate,String toDate);
+  Future<List<ResponseFixtures>> matchesForTeam(int team);
+  Future<List<ResponseFixtures>> getAllGames( String fromDate,String toDate);
   Future<List<FixtureAndLineupModel>> getFixturesAndLineup(dynamic id);
   Future<SquadModel> getSquad(int id);
-  Future<StandingTeamModel> standingLeague(int leagueId,String season);
+  Future<StandingTeamModel> standingLeague(int leagueId);
   Future<List<StandingLeague>> searchLeague(String search );
-  Future<List<ChampionsModel>> champions(int teamId,String season);
-  Future<StatisticsPlayerModel?> statisticsPlayer(int idPlayer,String season);
+  Future<List<ChampionsModel>> champions(int teamId);
+  Future<StatisticsPlayerModel?> statisticsPlayer(int idPlayer);
   Future<List<TransferModel?>> transferPlayer(int idPlayer);
   Future<dynamic> liveMatch(int idFixture);
   Future<List<StatisticsMatch>> getStatistics(int idFixture);
@@ -80,13 +80,13 @@ class RemoteDataSource implements BaseRemoteDataSource {
   static String? today;
   static int countLeagueId = 0;
   @override
-  Future<List<ResponseFixtures>> getAllGames(int season, String fromDate,String toDate) async {
+  Future<List<ResponseFixtures>> getAllGames( String fromDate,String toDate) async {
     modelOfFixtures = [];
     List<String> storeModel=[];
     for (countLeagueId = 0; countLeagueId < Constants.leagueId.length; countLeagueId++) {
       final request = await http.get(
           Uri.parse(
-              '${Constants.api}/${Constants.endPoints[1]}?league=${Constants.leagueId[countLeagueId].toString()}&from=$fromDate&to=$toDate&season=$season&timezone=${Constants.timezone}'),
+              '${Constants.api}/${Constants.endPoints[1]}?league=${Constants.leagueId[countLeagueId].toString()}&from=$fromDate&to=$toDate&season=${Constants.season}&timezone=${Constants.timezone}'),
           headers: Constants.headers);
 
 
@@ -158,12 +158,12 @@ class RemoteDataSource implements BaseRemoteDataSource {
   static StandingTeamModel? stand;
 
   @override
-  Future<StandingTeamModel> standingLeague(int leagueId, String season) async{
+  Future<StandingTeamModel> standingLeague(int leagueId) async{
     final request = await http.get(
         Uri.parse(
-            '${Constants.api}/${Constants.endPoints[4]}?league=$leagueId&season=$season'),
+            '${Constants.api}/${Constants.endPoints[4]}?league=$leagueId&season=${Constants.season}'),
         headers: Constants.headers);
-
+      print("standing league ${jsonDecode(request.body)['parameters']}");
     if (jsonDecode(request.body)['results'] > 0) {
       stand=StandingTeamModel(jsonDecode(request.body)['response'][0]['league']);
     }
@@ -175,12 +175,12 @@ class RemoteDataSource implements BaseRemoteDataSource {
   static late List<ResponseFixtures> modelMatchesForTeam;
 
   @override
-  Future<List<ResponseFixtures>> matchesForTeam(int team, int season)async {
+  Future<List<ResponseFixtures>> matchesForTeam(int team)async {
     modelMatchesForTeam = [];
 
       final request = await http.get(
           Uri.parse(
-              '${Constants.api}/${Constants.endPoints[1]}?team=$team&season=$season'),
+              '${Constants.api}/${Constants.endPoints[1]}?team=$team&season=${Constants.season}'),
           headers: Constants.headers);
       print(jsonDecode(request.body)['parameters']);
       if (jsonDecode(request.body)['results'] > 0) {
@@ -196,11 +196,11 @@ class RemoteDataSource implements BaseRemoteDataSource {
   static late List<ChampionsModel> modelChampionsTeam;
 
   @override
-  Future<List<ChampionsModel>> champions(int teamId, String season) async{
+  Future<List<ChampionsModel>> champions(int teamId) async{
     modelChampionsTeam=[];
     final request = await http.get(
         Uri.parse(
-            '${Constants.api}/${Constants.endPoints[5]}?team=$teamId&season=$season'),
+            '${Constants.api}/${Constants.endPoints[5]}?team=$teamId&season=${Constants.season}'),
         headers: Constants.headers);
 
     if (jsonDecode(request.body)['results'] > 0) {
@@ -216,13 +216,13 @@ class RemoteDataSource implements BaseRemoteDataSource {
 
 
   @override
-  Future<StatisticsPlayerModel?> statisticsPlayer(int idPlayer, String season) async{
+  Future<StatisticsPlayerModel?> statisticsPlayer(int idPlayer ) async{
 
     final request = await http.get(
         Uri.parse(
-            '${Constants.api}/${Constants.endPoints[6]}?id=$idPlayer&season=$season'),
+            '${Constants.api}/${Constants.endPoints[6]}?id=$idPlayer&season=${Constants.season}'),
         headers: Constants.headers);
-   // print(jsonDecode(request.body)['results']);
+    print(jsonDecode(request.body)['parameters']);
 
     if (jsonDecode(request.body)['results'] > 0) {
      // print(jsonDecode(request.body)['response']);

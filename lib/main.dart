@@ -16,7 +16,6 @@ import 'package:sofa_sccore/domain/entities/fixtures.dart';
 import 'package:sofa_sccore/presentation/bloc/cubit.dart';
 import 'package:sofa_sccore/presentation/bloc/states.dart';
 
-import 'package:sofa_sccore/presentation/screens/matches_and_lives.dart';
 import 'package:sofa_sccore/presentation/screens/splash_view.dart';
 
 import 'core/bloc_observer.dart';
@@ -38,6 +37,7 @@ void main() async{
   Constants.todaySharedPreference=await SharedPreference.getData('today');
   Constants.apiKey=await SharedPreference.getData('api');
  Constants.favorites=await SharedPreference.getDataString('favorites');
+ Constants.leagueId=await SharedPreference.getDataString('newLeagues');
 
   if(Constants.todaySharedPreference==null){}
   else if(int.parse(Constants.todaySharedPreference!)==int.parse(DateTime.now().toString().substring(11,13))){

@@ -5,7 +5,7 @@ class ChampionsUseCase{
   final BaseFootballTeams baseFootballTeams;
 
   ChampionsUseCase(this.baseFootballTeams);
-  Future<List<ChampionEntity>> execute(int teamId,String season)async{
-    return await baseFootballTeams.champions(teamId, season);
+  Future<List<ChampionEntity>> execute(int teamId)async{
+    return await baseFootballTeams.champions(teamId);
   }
 }

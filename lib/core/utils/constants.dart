@@ -1,10 +1,9 @@
 
-import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
-
 class Constants
 {
   static String api ='https://v3.football.api-sports.io';
   static String? apiKey ;
+  static int season=2022;
   static Uri url =Uri.parse('https://dashboard.api-football.com');
   static List<String> endPoints=['teams','fixtures','fixtures/lineups',
     "players/squads",'standings','leagues','players','transfers',"odds/live","fixtures/statistics",'fixtures/events','status'];
@@ -39,7 +38,7 @@ class Constants
 
   // Leagues must input season
   //static List<int> leagueId=[1,2,39,140,135,233,3];
-  static List<int> leagueId=[39];         //لغاية لما اخلص الابليكشن
+  static List<int> leagueId =[39] ;         //لغاية لما اخلص الابليكشن
   static int worldCup=1;
     static int uEFAChampionsLeague=2;
     static int premierLeague=39;

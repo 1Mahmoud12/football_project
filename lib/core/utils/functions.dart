@@ -67,6 +67,24 @@ navigatorReuse(context,widget){
   Navigator.push(context, MaterialPageRoute(builder: (context)=>widget));
 }
 
+Route createRoute(Widget detailsTeam,double x,double y) {
+  return PageRouteBuilder(
+    pageBuilder: (context, animation, secondaryAnimation) =>  detailsTeam,
+    transitionDuration: const Duration(milliseconds: 500),
+    transitionsBuilder: (context, animation, secondaryAnimation, child) {
+      var begin = Offset(x, y);
+      const end = Offset.zero;
+      const curve = Curves.ease;
+
+      var tween = Tween(begin: begin, end: end).chain(CurveTween(curve: curve));
+
+      return SlideTransition(
+        position: animation.drive(tween),
+        child: child,
+      );
+    },
+  );
+}
 Widget logo(widthMedia, model){
   return Padding(
     padding: const EdgeInsets.only(top:10,left: 8.0),
@@ -188,7 +206,7 @@ Widget matches(List <ResponseFixtures>model,index,context,{ bool live=false}){
       MatchesCubit.get(context).getEvents(model[index].fixtures.idFixtures);
 
 
-      navigatorReuse(context, Match(idFixtures:  model[index].fixtures.idFixtures,responseFixtures:  model[index]));
+      Navigator.of(context).push(createRoute(Match(idFixtures:  model[index].fixtures.idFixtures,responseFixtures:  model[index]),1,0));
     },
     child: Padding(
       padding: const EdgeInsets.only(left: 8.0,top: 8.0,right: 8.0),
@@ -220,13 +238,13 @@ Widget matches(List <ResponseFixtures>model,index,context,{ bool live=false}){
                     Expanded(
                       child: InkWell(
                         onTap: (){
-                          MatchesCubit.get(context).matchesForTeamFun( model[index].teams.idHome, 2022)
+                          MatchesCubit.get(context).matchesForTeamFun( model[index].teams.idHome)
                               .then((value) => MatchesCubit.get(context).timeToStartLive(RemoteDataSource.modelMatchesForTeam, '2022'));
 
                           MatchesCubit.get(context).championsTeam(model[index].teams.idHome);
                           MatchesCubit.get(context).detailsVenueTeam( model[index].teams.idHome);
                           MatchesCubit.get(context).getSquad( model[index].teams.idHome);
-                          MatchesCubit.get(context).standing(model[index].league.idLeague, '2022');
+                          MatchesCubit.get(context).standing(model[index].league.idLeague,);
                           Navigator.of(context).push(createRoute(Team(idTeam: model[index].teams.idHome),-1,0));
                           },
                         child: Column(
@@ -297,9 +315,9 @@ Widget matches(List <ResponseFixtures>model,index,context,{ bool live=false}){
                           MatchesCubit.get(context).championsTeam(model[index].teams.idAway)
                               .then((value) => MatchesCubit.get(context).timeToStartLive(RemoteDataSource.modelMatchesForTeam, '2022'));
                           MatchesCubit.get(context).detailsVenueTeam( model[index].teams.idAway);
-                          MatchesCubit.get(context).matchesForTeamFun( model[index].teams.idAway, 2022);
+                          MatchesCubit.get(context).matchesForTeamFun( model[index].teams.idAway);
                           MatchesCubit.get(context).getSquad( model[index].teams.idAway);
-                          MatchesCubit.get(context).standing(model[index].league.idLeague, '2022');
+                          MatchesCubit.get(context).standing(model[index].league.idLeague,);
 
                           Navigator.of(context).push(createRoute(Team(idTeam: model[index].teams.idAway),360,0));
 
@@ -336,7 +354,7 @@ List<ChampionsModel> championsLeague(){
   return test;
 }
 
-int selectNotStarted(List<ResponseFixtures> model){
+void selectNotStarted(List<ResponseFixtures> model,scrollController){
   int item=0;
   for(int i=0;i<model.length;i++){
     //print(model[i].fixtures.shortTime);
@@ -344,7 +362,8 @@ int selectNotStarted(List<ResponseFixtures> model){
       item=i;
       break;
     }}
-  return item;
+  scrollController.jumpTo(
+    /*duration: Duration(seconds: Constants.favorites.length)*/ index: item,alignment: 0.3);
   }
 Widget indicator(){
   return SizedBox(
@@ -365,22 +384,8 @@ Widget indicator(){
   );
 }
 
-Route createRoute(Widget detailsTeam,double x,double y) {
-  return PageRouteBuilder(
-    pageBuilder: (context, animation, secondaryAnimation) =>  detailsTeam,
-    transitionDuration: const Duration(milliseconds: 500),
-    transitionsBuilder: (context, animation, secondaryAnimation, child) {
-      var begin = Offset(x, y);
-      const end = Offset.zero;
-      const curve = Curves.ease;
 
-      var tween = Tween(begin: begin, end: end).chain(CurveTween(curve: curve));
 
-      return SlideTransition(
-        position: animation.drive(tween),
-        child: child,
-      );
-    },
-  );
-}
+
+
 

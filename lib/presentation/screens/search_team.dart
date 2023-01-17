@@ -1,20 +1,17 @@
 import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:sofa_sccore/core/utils/constants.dart';
 import 'package:sofa_sccore/core/utils/functions.dart';
 import 'package:sofa_sccore/data/data_source/remote_data_source.dart';
-import 'package:sofa_sccore/domain/entities/fixtures.dart';
 import 'package:sofa_sccore/presentation/bloc/cubit.dart';
 import 'package:sofa_sccore/presentation/bloc/states.dart';
-import 'package:sofa_sccore/presentation/screens/details_team/squad_team.dart';
 
 import '../../data/models/search_teams_model.dart';
 import 'details_team/team.dart';
 
 class SearchTeam extends StatelessWidget {
-   SearchTeam({Key? key}) : super(key: key);
-var searchController=TextEditingController();
+    SearchTeam({Key? key}) : super(key: key);
+final searchController=TextEditingController();
   @override
   Widget build(BuildContext context) {
     double heightMedia=MediaQuery.of(context).size.height;
@@ -84,9 +81,11 @@ var searchController=TextEditingController();
             MatchesCubit.get(context).getSquad( model[index].teamJson.id);
             MatchesCubit.get(context).championsTeam(model[index].teamJson.id,search: true);
             MatchesCubit.get(context).detailsVenueTeam(   model[index].teamJson.id);
-            MatchesCubit.get(context).matchesForTeamFun(model[index].teamJson.id,DateTime.now().year);
-            navigatorReuse(context,Team(idTeam:   model[index].teamJson.id,));
-           // navigatorReuse(context, SquadTeam(idTeam: model[index].teamJson.id,leagueId:model[index]. ,));
+            MatchesCubit.get(context).matchesForTeamFun(model[index].teamJson.id);
+            //navigatorReuse(context,Team(idTeam:   model[index].teamJson.id,));
+            Navigator.of(context).push(createRoute(Team(idTeam:   model[index].teamJson.id,),-1,0));
+
+            // navigatorReuse(context, SquadTeam(idTeam: model[index].teamJson.id,leagueId:model[index]. ,));
             //print(model[index].teamJson.id);
           },
           child: Row(

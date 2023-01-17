@@ -74,10 +74,11 @@ class DetailsOfMatches extends StatelessWidget {
                                           MatchesCubit.get(context).championsTeam( responseFixture.teams.idHome);
                                            MatchesCubit.get(context).detailsVenueTeam( responseFixture.teams.idHome);
                                         MatchesCubit.get(context).getSquad( responseFixture.teams.idHome,);
-                                          MatchesCubit.get(context).matchesForTeamFun( responseFixture.teams.idHome,2022);
+                                          MatchesCubit.get(context).matchesForTeamFun( responseFixture.teams.idHome);
 
-                                          MatchesCubit.get(context).standing(responseFixture.league.idLeague, '2022');
-                                          navigatorReuse(context,Team(idTeam: responseFixture.teams.idHome,));
+                                          MatchesCubit.get(context).standing(responseFixture.league.idLeague,);
+                                          Navigator.of(context).push(createRoute(Team(idTeam: responseFixture.teams.idHome),-1,0));
+
                                         },
                                         child: Column(
                                           children: [
@@ -142,9 +143,10 @@ class DetailsOfMatches extends StatelessWidget {
                                           MatchesCubit.get(context).championsTeam( responseFixture.teams.idAway);
                                           MatchesCubit.get(context).detailsVenueTeam( responseFixture.teams.idAway);
 
-                                          MatchesCubit.get(context).matchesForTeamFun( responseFixture.teams.idAway,2022);
-                                          MatchesCubit.get(context).standing(responseFixture.league.idLeague, '2022');
-                                          navigatorReuse(context,Team(idTeam: responseFixture.teams.idAway,));
+                                          MatchesCubit.get(context).matchesForTeamFun( responseFixture.teams.idAway);
+                                          MatchesCubit.get(context).standing(responseFixture.league.idLeague,);
+                                          Navigator.of(context).push(createRoute(Team(idTeam: responseFixture.teams.idAway),1,0));
+
                                         },
                                         child: Column(
                                           children: [
@@ -629,7 +631,7 @@ class DetailsOfMatches extends StatelessWidget {
       child: InkWell(
         onTap: (){
           //print(model.substitutes[index].id.toString());
-          MatchesCubit.get(context).statisticsPlayer(model.substitutes[index].id,season: DateTime.now().year.toString());
+          MatchesCubit.get(context).statisticsPlayer(model.substitutes[index].id);
           MatchesCubit.get(context).transferPlayer(model.substitutes[index].id);
           navigatorReuse(context, PlayerInfo(idPlayer: model.substitutes[index].id, idTeam:idTeam));
         },

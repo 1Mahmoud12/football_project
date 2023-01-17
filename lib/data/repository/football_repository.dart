@@ -2,7 +2,6 @@
 import 'package:sofa_sccore/data/data_source/remote_data_source.dart';
 import 'package:sofa_sccore/data/models/search_teams_model.dart';
 import 'package:sofa_sccore/data/models/transfer_model.dart';
-import 'package:sofa_sccore/domain/entities/details_match/events_match.dart';
 import 'package:sofa_sccore/domain/entities/details_match/statistics_match.dart';
 import 'package:sofa_sccore/domain/entities/fixtures.dart';
 import 'package:sofa_sccore/domain/entities/details_match/fixtures_lineup.dart';
@@ -14,7 +13,6 @@ import 'package:sofa_sccore/domain/entities/team/squad.dart';
 import 'package:sofa_sccore/domain/repository/football_team.dart';
 
 import '../models/standing_model.dart';
-import '../models/details_match/statistics_model.dart';
 
 class FootballRepository implements BaseFootballTeams
 {
@@ -28,8 +26,8 @@ class FootballRepository implements BaseFootballTeams
   }
 
   @override
-  Future<List<ResponseFixtures>> getAllGames(int season,String fromDate,String toDate) async{
-    return await baseRemoteDataSource.getAllGames( season, fromDate, toDate);
+  Future<List<ResponseFixtures>> getAllGames(String fromDate,String toDate) async{
+    return await baseRemoteDataSource.getAllGames( fromDate, toDate);
 
   }
 
@@ -45,19 +43,19 @@ class FootballRepository implements BaseFootballTeams
   }
 
   @override
-  Future<StandingTeamModel> standing(int leagueId, String season) async{
-    return await baseRemoteDataSource.standingLeague(leagueId,season);
+  Future<StandingTeamModel> standing(int leagueId) async{
+    return await baseRemoteDataSource.standingLeague(leagueId);
 
   }
 
   @override
-  Future<List<ResponseFixtures>> matchesForTeam(int team, int season) async{
-    return await baseRemoteDataSource.matchesForTeam(team, season);
+  Future<List<ResponseFixtures>> matchesForTeam(int team) async{
+    return await baseRemoteDataSource.matchesForTeam(team);
   }
 
   @override
-  Future<List<ChampionEntity>> champions(int teamId, String season) async{
-    return await baseRemoteDataSource.champions(teamId, season);
+  Future<List<ChampionEntity>> champions(int teamId) async{
+    return await baseRemoteDataSource.champions(teamId);
 
   }
 
@@ -68,8 +66,8 @@ class FootballRepository implements BaseFootballTeams
   }
 
   @override
-  Future<PlayerDetailsEntities?> statisticsPlayer(int idPlayer, String season) async{
-    return await baseRemoteDataSource.statisticsPlayer(idPlayer,season);
+  Future<PlayerDetailsEntities?> statisticsPlayer(int idPlayer) async{
+    return await baseRemoteDataSource.statisticsPlayer(idPlayer);
 
   }
    @override

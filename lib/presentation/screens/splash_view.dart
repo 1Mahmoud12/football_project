@@ -1,10 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
-import 'package:sofa_sccore/core/utils/dialog.dart';
 import 'package:sofa_sccore/core/utils/functions.dart';
 import 'package:sofa_sccore/presentation/screens/matches_and_lives.dart';
 
-import '../../core/utils/constants.dart';
 
 class SplashView extends StatelessWidget {
   const SplashView({Key? key}) : super(key: key);
@@ -16,7 +13,7 @@ class SplashView extends StatelessWidget {
     //Future.delayed(const Duration(seconds: 0),()async => await navigatorReuse(context, Constants.apiKey==null?SpecificDialog():MatchesAndLives()),);
     return Scaffold(
       body: OutlinedButton(
-        onPressed: ()=>navigatorReuse(context, MatchesAndLives()),
+        onPressed: ()=> Navigator.of(context).push(createRoute(MatchesAndLives(),-1,0)),
         child: Container(
 
           height:heightMedia*1 ,
