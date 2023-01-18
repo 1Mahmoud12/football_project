@@ -6,7 +6,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sofa_sccore/core/network/local.dart';
 import 'package:sofa_sccore/core/utils/constants.dart';
-import 'package:sofa_sccore/core/utils/dialog.dart';
 import 'package:sofa_sccore/core/utils/theme/dark_theme.dart';
 import 'package:sofa_sccore/core/utils/theme/light_theme.dart';
 import 'package:sofa_sccore/data/data_source/remote_data_source.dart';
@@ -38,7 +37,7 @@ void main() async{
   Constants.apiKey=await SharedPreference.getData('api');
  Constants.favorites=await SharedPreference.getDataString('favorites');
  Constants.leagueId=await SharedPreference.getDataString('newLeagues');
-
+  Constants.leagueId=Constants.leagueId.isEmpty?[39]:await SharedPreference.getDataString('newLeagues');
   if(Constants.todaySharedPreference==null){}
   else if(int.parse(Constants.todaySharedPreference!)==int.parse(DateTime.now().toString().substring(11,13))){
 
@@ -75,7 +74,7 @@ class MyApp extends StatelessWidget {
           debugShowCheckedModeBanner: false,
           darkTheme: dark,
           themeMode:MatchesCubit.get(context).checkMode? ThemeMode.dark:ThemeMode.light,
-          home:  Constants.apiKey!=null?const SplashView():SpecificDialog(),
+          home:  const SplashView(),
         );
         },
       ),

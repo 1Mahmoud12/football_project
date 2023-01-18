@@ -4,7 +4,7 @@ class Constants
   static String api ='https://v3.football.api-sports.io';
   static String? apiKey ;
   static int season=2022;
-  static Uri url =Uri.parse('https://dashboard.api-football.com');
+  static String url ='https://dashboard.api-football.com/';
   static List<String> endPoints=['teams','fixtures','fixtures/lineups',
     "players/squads",'standings','leagues','players','transfers',"odds/live","fixtures/statistics",'fixtures/events','status'];
 
