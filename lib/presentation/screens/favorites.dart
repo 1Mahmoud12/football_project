@@ -30,11 +30,11 @@ class FavouriteTeams extends StatelessWidget {
       builder: (context, state) {
         return Scaffold(
           body: ConditionalBuilder(
-            condition:Constants.favorites.isEmpty,
+            condition:MatchesCubit.get(context).successFavorites==0,
             builder: (context)=> Center(child: Image.asset('assets/no_matches.png')),
             fallback: (context) =>
                 ConditionalBuilder(
-                  condition:MatchesCubit.get(context).countListFavorites == Constants.favorites.length ,
+                  condition:MatchesCubit.get(context).successFavorites==2,
                     builder: (context){
                       MatchesCubit.get(context).timeToStartLive(model, context);
                       //index2 = selectNotStarted(sortMatches(MatchesCubit.get(context).modelFavorites));

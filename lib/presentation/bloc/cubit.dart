@@ -72,19 +72,18 @@ class MatchesCubit extends Cubit<MatchesState> {
     //emit(MatchesCountPlusState());
   }
   List<ResponseFixtures> sortModel=[];
-  bool success=false;
+  /// success =1 for loading , 2 for success , 0 for no matches and 10 for error
+  int successMatches=0;
   Future<void> allGames( fromDate, toDate) async {
     emit(MatchesGetAllGamesLoadingState());
-    success=false;
-    await GetAllGamesUseCase(seGet())
-        .execute( fromDate, toDate)
-        .then((value) {
-      success=true;
+    successMatches=1;
+    await GetAllGamesUseCase(seGet()).execute( fromDate, toDate).then((value) {
+      successMatches=value.isNotEmpty?2:0;
         // print( SharedPreference.getData('fixtures'));
       sortModel=sortMatches(RemoteDataSource.modelOfFixtures!);
       emit(MatchesGetAllGamesSuccessState());
     }).catchError((error) {
-
+      successMatches=10;
       print(error.toString());
       emit(MatchesGetAllGamesErrorState());
     })
@@ -141,17 +140,21 @@ class MatchesCubit extends Cubit<MatchesState> {
   List<ResponseFixtures> modelFavorites = [];
   int countListFavorites=0;
   double index=0.0;
-
+  /// success =1 for loading , 2 for success , 0 for no matches and 10 for error
+  int successFavorites=0;
   Future matchesForTeamFavorites(int teamId) async {
     emit(MatchesGetMatchesForTeamFavoritesLoadingState());
+    successFavorites=1;
     modelFavorites = [];
     return await MatchesForTeam(seGet()).execute(teamId).then((value) {
       modelFavorites.addAll(value);
       countListFavorites++;
+      successFavorites=value.isNotEmpty?2:0;
 
       emit(MatchesGetMatchesForTeamFavoritesSuccessState());
 
     }).catchError((error) {
+      successFavorites=10;
       print(error);
       emit(MatchesGetMatchesForTeamFavoritesErrorState());
     });

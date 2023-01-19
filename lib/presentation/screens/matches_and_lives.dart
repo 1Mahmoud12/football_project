@@ -81,58 +81,58 @@ class MatchesAndLives extends StatelessWidget {
         },
         builder: (context,state)=> SingleChildScrollView(
           child: ConditionalBuilder(
-              condition:RemoteDataSource.modelOfFixtures!.isEmpty&&state is MatchesGetAllGamesSuccessState,
-              builder: (context) =>Column(
+              condition:MatchesCubit.get(context).successMatches==2 ,
+              builder: (context)  {
 
-            children: [
-              Image.asset('assets/no_matches.png',height: heightMedia*.8),
-            ],
-          ),
+                if(index>4) {
+                  Future.delayed(const Duration(milliseconds: 500),() async => selectNotStarted(sortMatches(MatchesCubit.get(context).sortModel),scrollController),);
+                }
+                return Column(
+                  children: [
+                    TextButton(
+                        onPressed: () {
+                          MatchesCubit.get(context).allGames(
+                              DateTime.now().add(const Duration(days: -7)).toString().substring(0, 10),
+                              DateTime.now().add(const Duration(days: -1)).toString().substring(0, 10));
+                        },
+                        child: const Text('SHOW LAST 7 DAYS')),
+                    SizedBox(
+                      height: heightMedia * .81,
+                      child: RefreshIndicator(
+                        edgeOffset: 100.0,
+                        onRefresh: () async {
+                          MatchesCubit.get(context).allGames(Constants.fromDate,Constants.toDate);
+                          if(index>4) {
+                            Future.delayed(const Duration(milliseconds: 500),() async => selectNotStarted(sortMatches(MatchesCubit.get(context).sortModel),scrollController),);
+                          }
+
+                        },
+                        child: ScrollablePositionedList.builder(
+                            physics: const BouncingScrollPhysics(),
+                            itemScrollController: scrollController,
+                            itemBuilder: (ctx, index) {
+                              return matches(sortMatches( RemoteDataSource.modelOfFixtures!), index, context, live: MatchesCubit.get(context).liveDate[index]);
+                            },
+                            itemCount: RemoteDataSource.modelOfFixtures!.length),
+                      ),
+                    ),
+                  ],
+                );
+              },
               fallback: (context) =>  ConditionalBuilder(
-                condition: RemoteDataSource.modelOfFixtures!.isEmpty &&state is MatchesGetAllGamesLoadingState,
+                condition: MatchesCubit.get(context).successMatches==1,
                 builder: (context)=>SizedBox(
                       width: double.infinity,
                       height: heightMedia * 5,
                       child: LoadingScreen(
                       enabled: enabled,
                       )),
-                fallback: (context) {
+                fallback: (context)=>Column(
 
-                  if(index>4) {
-                    Future.delayed(const Duration(milliseconds: 500),() async => selectNotStarted(sortMatches(MatchesCubit.get(context).sortModel),scrollController),);
-                  }
-                  return Column(
-                    children: [
-                      TextButton(
-                          onPressed: () {
-                            MatchesCubit.get(context).allGames(
-                                DateTime.now().add(const Duration(days: -7)).toString().substring(0, 10),
-                                DateTime.now().add(const Duration(days: -1)).toString().substring(0, 10));
-                          },
-                          child: const Text('SHOW LAST 7 DAYS')),
-                      SizedBox(
-                        height: heightMedia * .81,
-                        child: RefreshIndicator(
-                          edgeOffset: 100.0,
-                          onRefresh: () async {
-                            MatchesCubit.get(context).allGames(Constants.fromDate,Constants.toDate);
-                            if(index>4) {
-                              Future.delayed(const Duration(milliseconds: 500),() async => selectNotStarted(sortMatches(MatchesCubit.get(context).sortModel),scrollController),);
-                            }
-
-                          },
-                          child: ScrollablePositionedList.builder(
-                              physics: const BouncingScrollPhysics(),
-                              itemScrollController: scrollController,
-                              itemBuilder: (ctx, index) {
-                                return matches(sortMatches( RemoteDataSource.modelOfFixtures!), index, context, live: MatchesCubit.get(context).liveDate[index]);
-                              },
-                              itemCount: RemoteDataSource.modelOfFixtures!.length),
-                        ),
-                      ),
-                    ],
-                  );
-                },
+                  children: [
+                    Image.asset('assets/no_matches.png',height: heightMedia*.8),
+                  ],
+                ),
               )
           ),
         ),

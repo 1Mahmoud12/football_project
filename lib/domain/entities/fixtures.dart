@@ -1,4 +1,6 @@
 
+import 'package:sofa_sccore/core/utils/constants.dart';
+
 class ResponseFixtures{
 late Fixtures fixtures;
 late League league;
@@ -35,7 +37,7 @@ class League {
   dynamic idLeague;
   League.fromJson(Map<String,dynamic>json){
     name=json['name'];
-    logo=json['logo'];
+    logo=json['logo']??Constants.noImage;
     group=json['round'];
     idLeague=json['id'];
   }
@@ -51,11 +53,11 @@ class Teams {
   dynamic idAway;
   Teams.fromJson(Map<String,dynamic>json){
     homeName=json['home']['name'];
-    homeLogo=json['home']['logo'];
+    homeLogo=json['home']['logo']??Constants.noImage;
     homeWinner=json['home']['winner'];
     idHome=json['home']['id'];
     awayName=json['away']['name'];
-    awayLogo=json['away']['logo'];
+    awayLogo=json['away']['logo']??Constants.noImage;
     idAway=json['away']['id'];
   }
 }
