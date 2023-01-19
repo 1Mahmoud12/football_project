@@ -30,9 +30,6 @@ class DetailsOfMatchesTwo extends StatelessWidget {
           var heightMedia = MediaQuery.of(context).size.height;
           int lineUpA=0;
           int lineUpB=0;
-
-
-
           return Scaffold(
             body:SingleChildScrollView(
               physics: const BouncingScrollPhysics(),
@@ -497,7 +494,7 @@ class DetailsOfMatchesTwo extends StatelessWidget {
   Widget substitutionPlayers(widthMedia,FixturesAndLineup model,idTeam,context){
     double heightMedia=MediaQuery.of(context).size.height;
     return SizedBox(
-      height: heightMedia*.98,
+      height:model.substitutes.length* (heightMedia*.07),
       child: ListView.separated(
           physics:const BouncingScrollPhysics(),
           scrollDirection: Axis.vertical,
