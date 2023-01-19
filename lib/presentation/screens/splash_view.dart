@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:ionicons/ionicons.dart';
 import 'package:sofa_sccore/core/utils/functions.dart';
 import 'package:sofa_sccore/presentation/screens/matches_and_lives.dart';
 
@@ -23,7 +24,7 @@ class SplashView extends StatelessWidget {
         child: Column(
           children: [
             Expanded(
-              flex: 7,
+              flex: 9,
               child: Stack(
                 alignment: AlignmentDirectional.center,
 
@@ -34,19 +35,17 @@ class SplashView extends StatelessWidget {
               ),
             ),
             Expanded(
-              flex: 3,
-              child: MaterialButton(
-                onPressed: ()=> Future.delayed(const Duration(milliseconds: 100),()async => await Navigator.of(context).push(createRoute(Constants.apiKey==null?OnBoarding1():MatchesAndLives(),-1,0))),
-                colorBrightness: Brightness.dark,
-                 //splashColor: Colors.indigo,
-                  disabledColor: Colors.amber,
+              flex: 1,
+              child: OutlinedButton(
+                onPressed: ()=> Future.delayed(const Duration(milliseconds: 100),()async => await Navigator.of(context).push(createRoute(Constants.apiKey==null?OnBoarding1():MatchesAndLives(),0,1))),
 
                   child:Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    const Text("go"),
+                     Text("kick",style: Theme.of(context).textTheme.bodyText1!.copyWith(color: Colors.white),),
                     SizedBox(width: widthMedia*.01,),
-                    const Icon( Icons.arrow_forward_ios),
+                    const Icon( Ionicons.football_outline,color:
+                      Colors.white,),
 
                   ],
                 ) ,),
