@@ -1,13 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:sofa_sccore/core/utils/constants.dart';
 import 'package:sofa_sccore/presentation/bloc/states.dart';
 import 'package:sofa_sccore/presentation/screens/details_team/details_team.dart';
 import 'package:sofa_sccore/presentation/screens/details_team/matches.dart';
 import 'package:sofa_sccore/presentation/screens/details_team/squad_team.dart';
 import 'package:sofa_sccore/presentation/screens/details_team/standing_team.dart';
 
-import '../../../core/network/local.dart';
 import '../../bloc/cubit.dart';
 
 class Team extends StatelessWidget {
@@ -39,11 +37,11 @@ class Team extends StatelessWidget {
 
                 ]),
               ),
-              body:  const TabBarView(
+              body:   TabBarView(
                 children:  [
-                  DetailsTeam(),
-                  SquadTeam(),
-                  StandingTeam()    ,
+                  const DetailsTeam(),
+                  const SquadTeam(),
+                  const StandingTeam()    ,
                   MatchesTeam(),
                 ],
               ))),

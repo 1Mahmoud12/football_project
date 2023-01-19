@@ -362,8 +362,7 @@ void selectNotStarted(List<ResponseFixtures> model,scrollController){
       item=i;
       break;
     }}
-  scrollController.jumpTo(
-    /*duration: Duration(seconds: Constants.favorites.length)*/ index: item,alignment: 0.3);
+  scrollController.jumpTo(index: item,alignment: 0.3);
   }
 Widget indicator(){
   return SizedBox(

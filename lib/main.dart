@@ -38,7 +38,7 @@ void main() async{
  Constants.favorites=await SharedPreference.getDataString('favorites');
  Constants.leagueId=await SharedPreference.getDataString('newLeagues');
   Constants.leagueId=Constants.leagueId.isEmpty?[39]:await SharedPreference.getDataString('newLeagues');
-  if(Constants.todaySharedPreference==null){}
+  if(Constants.todaySharedPreference!=null){}
   else if(int.parse(Constants.todaySharedPreference!)==int.parse(DateTime.now().toString().substring(11,13))){
 
     RemoteDataSource.modelOfFixtures=[];

@@ -81,16 +81,23 @@ class MatchesAndLives extends StatelessWidget {
         },
         builder: (context,state)=> SingleChildScrollView(
           child: ConditionalBuilder(
-              condition:state is MatchesGetAllGamesLoadingState,
-              builder: (context) =>SizedBox(
-                  width: double.infinity,
-                  height: heightMedia * 5,
-                  child: LoadingScreen(
-                    enabled: enabled,
-                  )),
+              condition:RemoteDataSource.modelOfFixtures!.isEmpty&&state is MatchesGetAllGamesSuccessState,
+              builder: (context) =>Column(
+
+            children: [
+              Image.asset('assets/no_matches.png',height: heightMedia*.8),
+            ],
+          ),
               fallback: (context) =>  ConditionalBuilder(
-                condition: RemoteDataSource.modelOfFixtures!.isNotEmpty,
-                builder: (context) {
+                condition: RemoteDataSource.modelOfFixtures!.isEmpty &&state is MatchesGetAllGamesLoadingState,
+                builder: (context)=>SizedBox(
+                      width: double.infinity,
+                      height: heightMedia * 5,
+                      child: LoadingScreen(
+                      enabled: enabled,
+                      )),
+                fallback: (context) {
+
                   if(index>4) {
                     Future.delayed(const Duration(milliseconds: 500),() async => selectNotStarted(sortMatches(MatchesCubit.get(context).sortModel),scrollController),);
                   }
@@ -126,12 +133,6 @@ class MatchesAndLives extends StatelessWidget {
                     ],
                   );
                 },
-                fallback: (context)=>Column(
-
-                  children: [
-                    Image.asset('assets/no_matches.png',height: heightMedia*.8),
-                  ],
-                ),
               )
           ),
         ),
@@ -321,8 +322,5 @@ class MatchesAndLives extends StatelessWidget {
     return height;
   }
 
-  Future scrollToIndex() async {
-    scrollController.jumpTo(
-      /*duration: Duration(seconds: Constants.favorites.length)*/ index: index,alignment: .2);
-  }
+
 }

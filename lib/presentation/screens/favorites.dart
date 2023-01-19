@@ -30,32 +30,36 @@ class FavouriteTeams extends StatelessWidget {
       builder: (context, state) {
         return Scaffold(
           body: ConditionalBuilder(
-            condition: MatchesCubit.get(context).countListFavorites == Constants.favorites.length ,
-            builder: (context) {
-              MatchesCubit.get(context).timeToStartLive(model, context);
-           //index2 = selectNotStarted(sortMatches(MatchesCubit.get(context).modelFavorites));
-
-              if(MatchesCubit.get(context).countListFavorites!=0) {
-                Future.delayed(const Duration(milliseconds: 100),() => selectNotStarted(sortMatches(MatchesCubit.get(context).modelFavorites),scrollController),);
-              }
-
-              return Padding(
-                padding: const EdgeInsets.only(top:  15.0),
-                child: Column(
-                  children: [
-                    Expanded(
-                      child: ScrollablePositionedList.builder(
-                        itemScrollController:scrollController,
-                        itemBuilder: (context, index) => matches(sortMatches(model), index, context),
-                        itemCount: model.length,
-                      ),
-                    )
-                  ],
-                ),
-              );
-            },
+            condition:Constants.favorites.isEmpty,
+            builder: (context)=> Center(child: Image.asset('assets/no_matches.png')),
             fallback: (context) =>
-                LoadingScreen(enabled: enabled),
+                ConditionalBuilder(
+                  condition:MatchesCubit.get(context).countListFavorites == Constants.favorites.length ,
+                    builder: (context){
+                      MatchesCubit.get(context).timeToStartLive(model, context);
+                      //index2 = selectNotStarted(sortMatches(MatchesCubit.get(context).modelFavorites));
+
+                      if(MatchesCubit.get(context).countListFavorites!=0) {
+                        Future.delayed(const Duration(milliseconds: 100),() => selectNotStarted(sortMatches(MatchesCubit.get(context).modelFavorites),scrollController),);
+                      }
+
+                      return Padding(
+                        padding: const EdgeInsets.only(top:  15.0),
+                        child: Column(
+                          children: [
+                            Expanded(
+                              child: ScrollablePositionedList.builder(
+                                itemScrollController:scrollController,
+                                itemBuilder: (context, index) => matches(sortMatches(model), index, context),
+                                itemCount: model.length,
+                              ),
+                            )
+                          ],
+                        ),
+                      );
+                    },
+                    fallback:(context)=>  LoadingScreen(enabled: enabled)),
+
           ),
         );
       },

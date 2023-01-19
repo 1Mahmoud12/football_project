@@ -1,6 +1,7 @@
 import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 import 'package:sofa_sccore/data/data_source/remote_data_source.dart';
 import 'package:sofa_sccore/presentation/bloc/cubit.dart';
 import 'package:sofa_sccore/presentation/bloc/states.dart';
@@ -9,7 +10,8 @@ import '../../../core/utils/functions.dart';
 
 
 class MatchesTeam extends StatelessWidget {
-   const MatchesTeam({Key? key}) : super(key: key);
+   MatchesTeam({Key? key}) : super(key: key);
+   ItemScrollController scrollController = ItemScrollController();
 
   @override
   Widget build(BuildContext context) {
@@ -24,14 +26,21 @@ class MatchesTeam extends StatelessWidget {
               children: [
                 ConditionalBuilder(
                     condition: model.isNotEmpty,
-                    builder: (context)=>SizedBox(
-                      height: heightMedia*.78,
-                      child: ListView.builder(
-                          physics: const BouncingScrollPhysics(),
-                          itemBuilder:(context,index)=> matches(sortMatches(model) ,index,context),
-                          itemCount: sortMatches(model).length
-                      ),
-                    ), fallback: (context)=>indicator()),
+                    builder: (context)
+                    {
+
+                        Future.delayed(const Duration(milliseconds: 500),() async => selectNotStarted(sortMatches(model),scrollController),);
+
+                      return SizedBox(
+                        height: heightMedia * .78,
+                        child: ScrollablePositionedList.builder(
+                          itemScrollController: scrollController,
+                            physics: const BouncingScrollPhysics(),
+                            itemBuilder: (context, index) =>
+                                matches(sortMatches(model), index, context),
+                            itemCount: sortMatches(model).length),
+                      );
+                    }, fallback: (context)=>indicator()),
               ],
             ),
           );

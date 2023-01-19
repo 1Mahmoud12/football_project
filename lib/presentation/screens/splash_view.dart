@@ -23,7 +23,7 @@ class SplashView extends StatelessWidget {
         child: Column(
           children: [
             Expanded(
-              flex: 6,
+              flex: 7,
               child: Stack(
                 alignment: AlignmentDirectional.center,
 
@@ -34,7 +34,7 @@ class SplashView extends StatelessWidget {
               ),
             ),
             Expanded(
-              flex: 4,
+              flex: 3,
               child: MaterialButton(
                 onPressed: ()=> Future.delayed(const Duration(milliseconds: 100),()async => await Navigator.of(context).push(createRoute(Constants.apiKey==null?OnBoarding1():MatchesAndLives(),-1,0))),
                 colorBrightness: Brightness.dark,
