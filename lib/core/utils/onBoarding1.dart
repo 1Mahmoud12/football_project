@@ -16,6 +16,7 @@ class OnBoarding1 extends StatelessWidget {
     double widthMedia=MediaQuery.of(context).size.width;
     double heightMedia=MediaQuery.of(context).size.height;
     return Scaffold(
+      resizeToAvoidBottomInset: true,
       backgroundColor: Colors.white,
       primary: false,
       appBar: AppBar(
@@ -74,7 +75,7 @@ class OnBoarding1 extends StatelessWidget {
                     const Text('finally copy api key :',maxLines: 2,),
                     heightBox(10),
                     Padding(
-                      padding: const EdgeInsets.all(8.0),
+                      padding: MediaQuery.of(context).viewInsets,
                       child: TextFormField(
                         onFieldSubmitted: (s){
                           Constants.apiKey=s;

@@ -42,6 +42,7 @@ class MatchesAndLives extends StatelessWidget {
     var heightMedia = MediaQuery.of(context).size.height;
     var size = MediaQuery.of(context).size.aspectRatio;
     return Scaffold(
+      resizeToAvoidBottomInset: true,
       appBar: AppBar(
         title: const Text('Matches'),
         centerTitle: true,
@@ -65,42 +66,44 @@ class MatchesAndLives extends StatelessWidget {
                   : const Icon(Icons.dark_mode)),
         ],
       ),
-      body: SingleChildScrollView(
-        child: ConditionalBuilder(
-            condition: RemoteDataSource.modelOfFixtures == null ||RemoteDataSource.countLeagueId!=0,
-            builder: (context) =>SizedBox(
-                width: double.infinity,
-                height: heightMedia * 5,
-                child: LoadingScreen(
-                  enabled: enabled,
-                )),
-            fallback: (context) =>  ConditionalBuilder(
-              condition: RemoteDataSource.modelOfFixtures!.isNotEmpty,
-              builder: (context) {
-                if(index>4) {
-                  Future.delayed(const Duration(milliseconds: 500),() async => selectNotStarted(sortMatches(MatchesCubit.get(context).sortModel),scrollController),);
-                }
-                return Column(
-                  children: [
-                    TextButton(
-                        onPressed: () {
-                          MatchesCubit.get(context).allGames(
-                              DateTime.now().add(const Duration(days: -7)).toString().substring(0, 10),
-                              DateTime.now().add(const Duration(days: -1)).toString().substring(0, 10));
-                        },
-                        child: const Text('SHOW LAST 7 DAYS')),
-                    BlocConsumer<MatchesCubit,MatchesState>(
-                      listener: (context ,state){
-                        if (state is MatchesGetAllGamesSuccessState) {
-                          enabled = false;
-                          MatchesCubit.get(context).timeToStartLive(MatchesCubit.get(context).sortModel, context);
-                        }
-                        if (state is MatchesSearchLeagueSuccessState) {
-                          enabled = false;
+      body: BlocConsumer<MatchesCubit,MatchesState>(
+        listener: (context,state){
 
-                        }
-                      },
-                      builder: (context,state)=> SizedBox(
+            if (state is MatchesGetAllGamesSuccessState) {
+              enabled = false;
+              MatchesCubit.get(context).timeToStartLive(MatchesCubit.get(context).sortModel, context);
+            }
+            if (state is MatchesSearchLeagueSuccessState) {
+              enabled = false;
+
+            }
+
+        },
+        builder: (context,state)=> SingleChildScrollView(
+          child: ConditionalBuilder(
+              condition:state is MatchesGetAllGamesLoadingState,
+              builder: (context) =>SizedBox(
+                  width: double.infinity,
+                  height: heightMedia * 5,
+                  child: LoadingScreen(
+                    enabled: enabled,
+                  )),
+              fallback: (context) =>  ConditionalBuilder(
+                condition: RemoteDataSource.modelOfFixtures!.isNotEmpty,
+                builder: (context) {
+                  if(index>4) {
+                    Future.delayed(const Duration(milliseconds: 500),() async => selectNotStarted(sortMatches(MatchesCubit.get(context).sortModel),scrollController),);
+                  }
+                  return Column(
+                    children: [
+                      TextButton(
+                          onPressed: () {
+                            MatchesCubit.get(context).allGames(
+                                DateTime.now().add(const Duration(days: -7)).toString().substring(0, 10),
+                                DateTime.now().add(const Duration(days: -1)).toString().substring(0, 10));
+                          },
+                          child: const Text('SHOW LAST 7 DAYS')),
+                      SizedBox(
                         height: heightMedia * .81,
                         child: RefreshIndicator(
                           edgeOffset: 100.0,
@@ -120,17 +123,17 @@ class MatchesAndLives extends StatelessWidget {
                               itemCount: RemoteDataSource.modelOfFixtures!.length),
                         ),
                       ),
-                    ),
-                  ],
-                );
-              },
-              fallback: (context)=>Column(
+                    ],
+                  );
+                },
+                fallback: (context)=>Column(
 
-                children: [
-                  Image.asset('assets/no_matches.png',height: heightMedia*.8),
-                ],
-              ),
-            )
+                  children: [
+                    Image.asset('assets/no_matches.png',height: heightMedia*.8),
+                  ],
+                ),
+              )
+          ),
         ),
       ),
       floatingActionButton: FloatingActionButton(

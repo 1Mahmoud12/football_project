@@ -64,11 +64,9 @@ class MyApp extends StatelessWidget {
 
     return  BlocProvider(
       create: (context)=>MatchesCubit(seGet(),seGet(),seGet(),seGet(),seGet(),seGet(),seGet(), seGet(),seGet(),seGet(),seGet(),seGet(),seGet(),seGet(),)
-        ..mode(mode: mode)..messageFirebase(),
+        ..mode(mode: mode)/*..messageFirebase()*/,
       child: BlocBuilder<MatchesCubit,MatchesState>(
         builder: (context,state) {
-
-
           return MaterialApp(
           theme: light,
           debugShowCheckedModeBanner: false,

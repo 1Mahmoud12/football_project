@@ -72,11 +72,14 @@ class MatchesCubit extends Cubit<MatchesState> {
     //emit(MatchesCountPlusState());
   }
   List<ResponseFixtures> sortModel=[];
+  bool success=false;
   Future<void> allGames( fromDate, toDate) async {
     emit(MatchesGetAllGamesLoadingState());
+    success=false;
     await GetAllGamesUseCase(seGet())
         .execute( fromDate, toDate)
         .then((value) {
+      success=true;
         // print( SharedPreference.getData('fixtures'));
       sortModel=sortMatches(RemoteDataSource.modelOfFixtures!);
       emit(MatchesGetAllGamesSuccessState());
