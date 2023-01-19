@@ -123,13 +123,13 @@ class RemoteDataSource implements BaseRemoteDataSource {
           Uri.parse(
               '${Constants.api}/${Constants.endPoints[2]}?fixture=$id'),
           headers: Constants.headers);
-    print(id);
+    print(jsonDecode(request.body)['parameters']);
       if (jsonDecode(request.body)['results'] > 0) {
         jsonDecode(request.body)['response'].forEach((element) {
           fixturesAndLineup.add(FixtureAndLineupModel(element));
         });
       }else{
-        print('result of jason lineUp : ${jsonDecode(request.body)['results']}');
+        print('result of jason lineUp : ${jsonDecode(request.body)['errors']}');
 
       }
 
