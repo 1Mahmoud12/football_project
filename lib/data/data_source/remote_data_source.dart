@@ -124,6 +124,7 @@ class RemoteDataSource implements BaseRemoteDataSource {
               '${Constants.api}/${Constants.endPoints[2]}?fixture=$id'),
           headers: Constants.headers);
     print(jsonDecode(request.body)['parameters']);
+
       if (jsonDecode(request.body)['results'] > 0) {
         jsonDecode(request.body)['response'].forEach((element) {
           fixturesAndLineup.add(FixtureAndLineupModel(element));
