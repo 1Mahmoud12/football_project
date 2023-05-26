@@ -21,17 +21,15 @@
 ![](https://github.com/1Mahmoud12/course_Mrabdullah_udemy/blob/main/lib/details%20team.png)
 
 # in this project
-- bloc as State managment
+- bloc(cubit) as State managment
 - Clean code
 - Clean architecture
 - [Restful api](https://dashboard.api-football.com/)
 
 # pachage used
  
-- dio
 - http
 - conditional_builder_null_safety
-- flutter_svg
 - intl
 - flutter_bloc
 - get_it
