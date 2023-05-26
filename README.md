@@ -1,12 +1,12 @@
 # football world App
 
-### The football world application showes results of today's matches.
-##### details of the team ,standing it and matches for team.
-##### details of the match, events it and statistics for matches.
-##### You can define some leagues at matches page to show matches of them. 
-##### dark and light mode.
-##### search for any team.
-##### add any team in favorites to know the matches of it.
+### The football world application shows results of today's matches.
+##### Details of the team ,standing it and matches for team.
+##### Details of the match, events and statistics for matches.
+##### You can define some leagues on the matches page to show matches of them. 
+##### Dark and Light modes.
+##### Search for any team.
+##### Add any team in your favorites to know the matches of it.
 
 # Football world mockup
 
@@ -21,17 +21,15 @@
 ![](https://github.com/1Mahmoud12/course_Mrabdullah_udemy/blob/main/lib/details%20team.png)
 
 # in this project
-- bloc as State managment
+- bloc(cubit) as State managment
 - Clean code
 - Clean architecture
 - [Restful api](https://dashboard.api-football.com/)
 
 # pachage used
  
-- dio
 - http
 - conditional_builder_null_safety
-- flutter_svg
 - intl
 - flutter_bloc
 - get_it
